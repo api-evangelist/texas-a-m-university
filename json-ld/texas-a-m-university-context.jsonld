@@ -1,0 +1,36 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "tamu": "https://www.tamu.edu/ns#",
+    "name": "name",
+    "url": "url",
+    "description": "description",
+    "CollegeOrUniversity": "CollegeOrUniversity",
+    "WebAPI": "WebAPI",
+    "documentation": "documentation",
+    "termsOfService": "termsOfService",
+    "provider": "provider",
+    "api": "tamu:api",
+    "baseURL": "tamu:baseURL",
+    "humanURL": "tamu:humanURL"
+  },
+  "@type": "CollegeOrUniversity",
+  "name": "Texas A&M University",
+  "url": "https://www.tamu.edu",
+  "description": "A public land-grant research university in College Station, Texas, and the flagship of the Texas A&M University System.",
+  "api": [
+    {
+      "@type": "WebAPI",
+      "name": "TAMU GeoServices Geocoding API",
+      "humanURL": "https://geoservices.tamu.edu/Services/Geocode/WebService/Details/",
+      "baseURL": "https://geoservices.tamu.edu/Api/Geocode/V5/",
+      "documentation": "https://geoservices.tamu.edu/Services/Geocode/WebService/Details/"
+    },
+    {
+      "@type": "WebAPI",
+      "name": "UIN Services API",
+      "humanURL": "https://it.tamus.edu/uinmanager/api/",
+      "documentation": "https://api-doc.sea.system.tamus.edu/"
+    }
+  ]
+}

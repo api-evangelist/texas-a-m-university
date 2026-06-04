@@ -1,0 +1,14 @@
+{
+  "repo": "texas-a-m-university",
+  "feeds": [
+    {
+      "source": "https://stories.tamu.edu/",
+      "feed_url": "https://stories.tamu.edu/feed/",
+      "title": "Texas A&M Stories",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-03T00:00:00Z"
+}
