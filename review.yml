@@ -1,0 +1,45 @@
+---
+name: Texas A&M University
+description: Texas A&M University public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/texas-a-m-university/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 3
+    summary: >-
+      Verified live: the Texas A&M University System API Developer Portal
+      (api-doc.sea.system.tamus.edu, 200) and the publicly documented TAMU
+      GeoServices Geocoding API (geoservices.tamu.edu, 200) with a public
+      signup and a stable v5 REST base URL. The UIN Services API is documented
+      but gated behind SEA DevOps subscription approval, so no public base URL
+      was published. The TAMULib GitHub org hosts substantial library
+      open-source (IIIF, DSpace, Vireo) but these are deployable software, not
+      hosted public APIs. No fabricated endpoints; gated and code-only items
+      are marked as such. LinkedIn returns 999 to bots, which is expected and
+      not a failure.
+    endpoints:
+      - url: https://api-doc.sea.system.tamus.edu/
+        status: 200
+        note: TAMU System API Developer Portal (gated catalog, subscription approval).
+      - url: https://geoservices.tamu.edu/Services/Geocode/WebService/Details/
+        status: 200
+        note: GeoServices geocoding API docs; public, API-key required, v5.
+      - url: https://geoservices.tamu.edu/Api/Geocode/V5/
+        status: 200
+        note: Geocoding REST base URL (v5).
+      - url: https://it.tamus.edu/uinmanager/api/
+        status: 200
+        note: UIN Services API docs; gated, x-api-key, no public base URL.
+      - url: https://github.com/tamu-edu
+        status: 200
+        note: Official TAMU faculty/staff enterprise GitHub org.
+      - url: https://github.com/TAMULib
+        status: 200
+        note: TAMU Libraries org; 122 repos incl. IIIF, DSpace, Vireo.
+      - url: https://www.tamu.edu
+        status: 200
+        note: Official university website.
+      - url: https://www.linkedin.com/school/texas-a-m-university/
+        status: 999
+        note: LinkedIn school page; 999 is normal anti-bot response.

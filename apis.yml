@@ -1,0 +1,84 @@
+---
+aid: texas-a-m-university
+name: Texas A&M University
+description: >-
+  Texas A&M University is a public land-grant research university in College
+  Station, Texas, and the flagship of the Texas A&M University System. It is
+  ranked #154 in the QS World University Rankings 2025. Its public developer
+  footprint is led by the Texas A&M University System API Developer Portal
+  (api-doc.sea.system.tamus.edu), which exposes gated enterprise services such
+  as the UIN Services API behind subscription approval, alongside the publicly
+  documented TAMU GeoServices geocoding/address API and an active library
+  open-source ecosystem on GitHub (TAMULib) covering IIIF, DSpace, and Vireo
+  ETD systems.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/texas-a-m-university/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - Geocoding
+  - Library
+  - United States
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: texas-a-m-university:geoservices-geocode
+    name: TAMU GeoServices Geocoding API
+    description: >-
+      Free geocoding, address normalization/standardization, and GIS data
+      capture REST and SOAP API from TAMU GeoServices. Version 5 returns up to
+      172 output fields; an API key (from the account profile) is required for
+      all requests.
+    humanURL: https://geoservices.tamu.edu/Services/Geocode/WebService/Details/
+    baseURL: https://geoservices.tamu.edu/Api/Geocode/V5/
+    tags: [ Geocoding, Geospatial, Address, GIS ]
+    properties:
+      - type: Documentation
+        url: https://geoservices.tamu.edu/Services/Geocode/WebService/Details/
+      - type: SignUp
+        url: https://geoservices.tamu.edu/Signup/
+  - aid: texas-a-m-university:uin-services
+    name: UIN Services API
+    description: >-
+      Texas A&M University System enterprise API to search/verify, create, and
+      update Universal Identification Numbers (UIN). Access is gated: it
+      requires registering an application, subscribing to UIN Proxy Services v3
+      in the API Catalog, and approval by the System Enterprise Applications
+      (SEA) DevOps group. Uses x-api-key authentication.
+    humanURL: https://it.tamus.edu/uinmanager/api/
+    tags: [ Identity, Enterprise, Gated ]
+    properties:
+      - type: Documentation
+        url: https://it.tamus.edu/uinmanager/api/
+      - type: DeveloperPortal
+        url: https://api-doc.sea.system.tamus.edu/
+      - type: Authentication
+        url: https://it.tamus.edu/uinmanager/api/
+common:
+  - type: Website
+    url: https://www.tamu.edu
+  - type: DeveloperPortal
+    url: https://api-doc.sea.system.tamus.edu/
+  - type: GitHub
+    url: https://github.com/tamu-edu
+  - type: SourceCode
+    url: https://github.com/TAMULib
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/texas-a-m-university/
+  - type: Plans
+    url: plans/texas-a-m-university-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/texas-a-m-university-rate-limits.yml
+  - type: FinOps
+    url: finops/texas-a-m-university-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
