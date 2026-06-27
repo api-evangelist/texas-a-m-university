@@ -41,7 +41,7 @@ apis:
     properties:
       - type: Documentation
         url: https://geoservices.tamu.edu/Services/Geocode/WebService/Details/
-      - type: SignUp
+      - type: Signup
         url: https://geoservices.tamu.edu/Signup/
   - aid: texas-a-m-university:uin-services
     name: UIN Services API
