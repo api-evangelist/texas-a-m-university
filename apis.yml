@@ -61,6 +61,10 @@ apis:
       - type: Authentication
         url: https://it.tamus.edu/uinmanager/api/
 common:
+  - type: VulnerabilityDisclosure
+    url: security/texas-a-m-university-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/texas-a-m-university-domain-security.yml
   - type: Website
     url: https://www.tamu.edu
   - type: DeveloperPortal
