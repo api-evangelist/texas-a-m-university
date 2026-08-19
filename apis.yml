@@ -38,7 +38,7 @@ tags:
   - United States
 created: '2026-06-03'
 modified: '2026-06-03'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
   - aid: texas-a-m-university:geoservices-geocode
     name: TAMU GeoServices Geocoding API
