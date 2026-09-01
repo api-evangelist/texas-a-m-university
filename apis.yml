@@ -1,79 +1,296 @@
 ---
 aid: texas-a-m-university
 name: Texas A&M University
+x-type: university
+x-category: Public Research University
 description: >-
-  Texas A&M University is a public land-grant research university in College
-  Station, Texas, and the flagship of the Texas A&M University System. It is
-  ranked #154 in the QS World University Rankings 2025. Its public developer
-  footprint is led by the Texas A&M University System API Developer Portal
-  (api-doc.sea.system.tamus.edu), which exposes gated enterprise services such
-  as the UIN Services API behind subscription approval, alongside the publicly
-  documented TAMU GeoServices geocoding/address API and an active library
-  open-source ecosystem on GitHub (TAMULib) covering IIIF, DSpace, and Vireo
-  ETD systems.
+  Texas A&M University is a public land-grant research university in College Station, Texas, the
+  flagship of the Texas A&M University System, and ranked #154 in the QS World University Rankings
+  2025. Unlike most institutions in this cohort it is not a pure buyer: several of the surfaces
+  recorded here are Texas A&M's own engineering on Texas A&M's own hosts, and each one below was
+  fetched and given a status code before it was written down.
+
+  The genuinely institution-operated tier is four contracts wide. Texas A&M GeoServices
+  (geoservices.tamu.edu) publishes a documented, free, self-service geocoding and address
+  normalisation API at version 5.0.0 that returns up to 172 output fields — a research product of the
+  university's geospatial group and the strongest institution-authored API in the higher-education
+  catalog. The Aggie Map application backend (api.aggiemap.tamu.edu) serves campus dining locations
+  with live open/closed state as GeoJSON, and a companion feed on geoservices.tamu.edu serves live
+  shared-micromobility vehicle positions; both are undocumented, unauthenticated backends rather than
+  offered products, and are recorded as such. Texas A&M IT runs a public Esri ArcGIS Server
+  (gis.it.tamu.edu, mirrored at gis.tamu.edu) whose services directory answers anonymously across
+  seven folders of campus base maps, construction, transit and event-flow layers.
+
+  Two further institution-operated surfaces are protocol surfaces rather than REST APIs. The
+  university's Shibboleth Identity Provider publishes SAML 2.0 metadata unauthenticated from
+  idp.tamu.edu and is registered in InCommon as urn:mace:incommon:tamu.edu, which carries it into
+  eduGAIN — the surface class this cohort was most completely missing. The OAKTrust institutional
+  repository exposes a working OAI-PMH 2.0 endpoint whose Identify response names Texas A&M
+  Libraries' own help desk and no vendor at all, which is rare in this cohort.
+
+  Against that, the enterprise tier is closed. The Texas A&M University System API Developer Portal
+  (api-doc.sea.system.tamus.edu) is live but renders nothing without a sponsored System account; the
+  UIN Services API is documented in prose and gated behind subscription approval by the System
+  Enterprise Applications DevOps group, so no base URL and no specification is published. There is no
+  open-data portal — data.tamu.edu resolves in DNS but every HTTPS connection times out — no llms.txt,
+  and no student-facing course or registrar API. The course catalog is a Leepfrog CourseLeaf tenancy
+  and the LMS is an Instructure Canvas tenancy; both are real relationships and neither is Texas A&M's
+  contract. Texas A&M Libraries holds DOI prefix 10.21423 as a registrant at both DataCite and
+  Crossref, and the university carries ROR id 01f5ytq51.
 type: Index
 deliveryModel:
   model: saas
   open_source: false
-  commercial: true
-  callable_host: false
+  commercial: false
+  callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: medium
+  confidence: high
   source:
-  - pricing
-  generated: '2026-08-28'
-  method: derived
+  - openapi
+  - probe
+  generated: '2026-09-01'
+  method: probed
 accessModel:
   pricing: free
-  onboarding: unknown
+  onboarding: self-service
   trial: false
-  try_now: false
-  public: false
+  try_now: true
+  public: true
   label: Free
-  confidence: medium
+  confidence: high
   source:
+  - probe
   - plans
-  generated: '2026-07-22'
-  method: derived
+  generated: '2026-09-01'
+  method: probed
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/texas-a-m-university.png
 url: https://raw.githubusercontent.com/api-evangelist/texas-a-m-university/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
   - University
-  - Research
-  - Geocoding
-  - Library
+  - Higher Education
+  - Education
   - United States
+  - Texas
+  - Public Research University
+  - Land Grant
+  - Research
+  - Research Data
+  - Research Repository
+  - Identity Federation
+  - Geospatial
+  - Geocoding
+  - Open Data
+  - Library
+  - Course Catalog
+  - Campus Life
+  - Research Computing
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    Texas A&M is not a thin profile. Six institution-operated surfaces were probed anonymously and
+    answered — the GeoServices Geocoding API, the Aggie Map dining GeoJSON feed, the campus
+    micromobility vehicle feed, the Texas A&M IT ArcGIS REST services directory, the OAKTrust
+    OAI-PMH endpoint and the Shibboleth IdP SAML metadata — and four of them are described by a
+    contract in openapi/ with its operator settled. Four limits on that coverage are recorded rather
+    than papered over. First, the Texas A&M University System enterprise tier
+    (api-doc.sea.system.tamus.edu, the UIN Services API) is live but returns no catalog and no
+    specification to an unauthenticated caller, and every portal discovery route tried returned 404;
+    it is inventoried from Texas A&M's own documentation and never described as callable. Second, a
+    Cloudflare managed challenge returns HTTP 403 with a "Just a moment…" interstitial to automated
+    requests on oaktrust.library.tamu.edu/server/api, scholars.library.tamu.edu and hprc.tamu.edu
+    even with a browser User-Agent, so the DSpace REST API, Scholars@TAMU and the High Performance
+    Research Computing site are recorded as live-but-blocked — a fact about our access, not about
+    Texas A&M. Third, data.tamu.edu resolves in DNS (CNAME weasel.tamu.edu) but timed out on every
+    HTTPS attempt, so no open-data portal is claimed. Fourth, GeoServices returns HTTP 200 for
+    failed calls and carries the real 401/402 inside the JSON body, so a successful geocode response
+    could not be observed without an account key and its success schema is marked derived, not
+    probed.
+  evidence:
+  - url: https://geoservices.tamu.edu/Api/Geocode/V5/?version=5.0.0&streetAddress=1101%20Texas%20Ave&city=College%20Station&state=TX&zip=77840&format=json
+    status: 200
+  - url: https://api.aggiemap.tamu.edu/dining/locations/geojson
+    status: 200
+  - url: https://veoride.geoservices.tamu.edu/api/vehicles/basic/geojson
+    status: 200
+  - url: https://gis.it.tamu.edu/arcgis/rest/services?f=json
+    status: 200
+  - url: https://oaktrust.library.tamu.edu/server/oai/request?verb=Identify
+    status: 200
+  - url: https://idp.tamu.edu/idp/shibboleth
+    status: 200
+  - url: https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu
+    status: 200
+  - url: https://catalog.tamu.edu/ribbit/?page=getcourse.rjs&code=ENGR%20102
+    status: 200
+  - url: https://api-doc.sea.system.tamus.edu/api/portal/v1.3/discovery/apis
+    status: 404
+  - url: https://oaktrust.library.tamu.edu/server/api
+    status: 403
+  - url: https://scholars.library.tamu.edu/
+    status: 403
+  - url: https://hprc.tamu.edu/
+    status: 403
+  - url: https://data.tamu.edu/
+    status: 0
+  - url: https://www.tamu.edu/llms.txt
+    status: 404
 apis:
   - aid: texas-a-m-university:geoservices-geocode
-    name: TAMU GeoServices Geocoding API
+    name: Texas A&M GeoServices Geocoding API
+    x-operator: institution
     description: >-
-      Free geocoding, address normalization/standardization, and GIS data
-      capture REST and SOAP API from TAMU GeoServices. Version 5 returns up to
-      172 output fields; an API key (from the account profile) is required for
-      all requests.
+      Free geocoding, address normalisation and standardisation, census intersection and reverse
+      geocoding from Texas A&M GeoServices. Version 5.0.0 returns up to 172 output fields; an API key
+      from a free self-service account profile is required on every request and travels as a query
+      parameter. Institution-operated: geoservices.tamu.edu is under Texas A&M's own registrable
+      domain and the service is the university's own research product, not a platform vendor's.
+      Verified live 2026-09-01 — an anonymous call returns HTTP 200 carrying queryStatusCode
+      APIKeyMissing, which confirms both the parameter contract and the auth model.
     humanURL: https://geoservices.tamu.edu/Services/Geocode/WebService/Details/
     baseURL: https://geoservices.tamu.edu/Api/Geocode/V5/
     tags: [ Geocoding, Geospatial, Address, GIS ]
     properties:
+      - type: OpenAPI
+        url: openapi/texas-a-m-university-geoservices-geocoding-openapi.yml
       - type: Documentation
         url: https://geoservices.tamu.edu/Services/Geocode/WebService/Details/
       - type: Signup
         url: https://geoservices.tamu.edu/Signup/
+      - type: TermsOfService
+        url: https://geoservices.tamu.edu/About/Legal/TermsOfUse.aspx
+      - type: PrivacyPolicy
+        url: https://geoservices.tamu.edu/About/Legal/Privacy.aspx
+  - aid: texas-a-m-university:aggiemap-dining
+    name: Aggie Map Dining Locations API
+    x-operator: institution
+    description: >-
+      Read-only GeoJSON feed of Texas A&M campus dining locations with live open/closed state,
+      status message, street address and an occupancy signal, served from the university's own Aggie
+      Map backend. Verified 200 on 2026-09-01 returning 54 features to an anonymous request. Texas
+      A&M publishes no documentation, terms or rate limit for this host: it is an application
+      backend, not an offered product, and availability should be treated as unguaranteed.
+    humanURL: https://aggiemap.tamu.edu/
+    baseURL: https://api.aggiemap.tamu.edu
+    tags: [ Campus Life, Dining, GeoJSON, Geospatial ]
+    properties:
+      - type: OpenAPI
+        url: openapi/texas-a-m-university-aggiemap-dining-openapi.yml
+      - type: JSONSchema
+        url: json-schema/texas-a-m-university-dining-location.json
+      - type: Example
+        url: examples/texas-a-m-university-dining-locations-geojson-example.json
+      - type: Documentation
+        url: https://aggiemap.tamu.edu/
+  - aid: texas-a-m-university:campus-micromobility
+    name: Campus Micromobility Vehicle Positions API
+    x-operator: institution
+    description: >-
+      Live positions of shared micromobility vehicles on and around campus as GeoJSON, served from
+      veoride.geoservices.tamu.edu inside Texas A&M's own geoservices estate. Verified 200 on
+      2026-09-01 returning 3,300 Point features. The scooter fleet is a vendor's; the feed is
+      published from a Texas A&M host. Every feature's properties object is empty, so no vehicle id,
+      type, battery level or availability is exposed — that absence is recorded deliberately.
+    humanURL: https://aggiemap.tamu.edu/
+    baseURL: https://veoride.geoservices.tamu.edu
+    tags: [ Campus Life, Transportation, Micromobility, GeoJSON ]
+    properties:
+      - type: OpenAPI
+        url: openapi/texas-a-m-university-campus-micromobility-openapi.yml
+      - type: JSONSchema
+        url: json-schema/texas-a-m-university-micromobility-vehicles.json
+      - type: Example
+        url: examples/texas-a-m-university-micromobility-vehicles-geojson-example.json
+  - aid: texas-a-m-university:gis-arcgis-rest
+    name: Texas A&M IT ArcGIS REST Services
+    x-operator: institution
+    description: >-
+      Public Esri ArcGIS Server operated by Texas A&M IT, serving campus base maps, ADA routes,
+      construction, department search, transit lots, bike maps and event pedestrian/vehicle flow
+      layers. The services directory answered anonymously on 2026-09-01 at currentVersion 11.5 with
+      folders FCOR, Hosted, Routing, System, Testing, TS and Utilities, and is mirrored under a
+      second Texas A&M hostname at gis.tamu.edu. The deployment, the hostnames and the layers are
+      Texas A&M's; the REST contract itself is Esri's product specification and is deliberately NOT
+      saved into this repository under Texas A&M's name.
+    humanURL: https://gis.it.tamu.edu/arcgis/rest/services
+    baseURL: https://gis.it.tamu.edu/arcgis/rest/services
+    tags: [ Geospatial, GIS, ArcGIS, Campus Life ]
+    properties:
+      - type: Example
+        url: examples/texas-a-m-university-arcgis-services-catalog-example.json
+      - type: Documentation
+        url: https://gis.it.tamu.edu/arcgis/rest/services?f=json
+  - aid: texas-a-m-university:oaktrust-oaipmh
+    name: OAKTrust Institutional Repository — OAI-PMH
+    x-operator: institution
+    description: >-
+      OAI-PMH 2.0 harvesting endpoint for OAKTrust, the Texas A&M University Libraries institutional
+      repository. Verified 200 on 2026-09-01: repositoryName "OAKTrust", repositoryIdentifier
+      oaktrust.library.tamu.edu, adminEmail helpdesk@library.tamu.edu, metadata prefixes including
+      didl and mods. The repository software is DSpace, but no vendor appears anywhere in the
+      Identify response and the host is Texas A&M's, so this is recorded as institution-operated
+      rather than as a tenant relationship. The legacy DSpace 6 path /oai/request returns 403 behind
+      a Cloudflare challenge; the working endpoint is the DSpace 7 path under /server.
+    humanURL: https://oaktrust.library.tamu.edu/
+    baseURL: https://oaktrust.library.tamu.edu/server/oai/request
+    tags: [ Research Repository, Research Data, OAI-PMH, Library ]
+    properties:
+      - type: Example
+        url: examples/texas-a-m-university-oaktrust-oaipmh-identify-example.xml
+      - type: Documentation
+        url: https://oaktrust.library.tamu.edu/server/oai/request?verb=Identify
+  - aid: texas-a-m-university:identity-federation
+    name: Texas A&M Shibboleth Identity Provider Metadata
+    x-operator: institution
+    description: >-
+      SAML 2.0 metadata for Texas A&M University's own Shibboleth Identity Provider, published
+      unauthenticated from idp.tamu.edu. Verified 200 with content-type application/xml on
+      2026-09-01; the entityID served here is
+      urn:mace:tamu.edu:shibboleth:idp:tamu:administrative:cscn:idp.tamu.edu. This evidences the
+      education regime's shibboleth and saml domain standards from a document that can be fetched
+      and parsed.
+    humanURL: https://it.tamu.edu/
+    baseURL: https://idp.tamu.edu/idp/shibboleth
+    tags: [ Identity Federation, Shibboleth, SAML, Identity ]
+    properties:
+      - type: OpenAPI
+        url: openapi/texas-a-m-university-identity-federation-openapi.yml
+      - type: Documentation
+        url: https://idp.tamu.edu/idp/shibboleth
+  - aid: texas-a-m-university:incommon-registration
+    name: InCommon Federation Registration
+    x-operator: federation
+    description: >-
+      Texas A&M University's registration in the InCommon identity federation, resolvable through
+      InCommon's per-entity Metadata Query service under entityID urn:mace:incommon:tamu.edu.
+      Verified 200 as application/samlmetadata+xml on 2026-09-01, carrying mdui:DisplayName "Texas
+      A&M University" and SingleSignOnService endpoints at idp.tamu.edu. A federation is shared by
+      definition and the MDQ service is InCommon's; the entity it returns is Texas A&M's, so the
+      relationship is recorded and InCommon's own contract is not saved here.
+    humanURL: https://incommon.org/federation/
+    baseURL: https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu
+    tags: [ Identity Federation, InCommon, SAML, eduGAIN ]
+    properties:
+      - type: Example
+        url: examples/texas-a-m-university-incommon-entity-example.xml
+      - type: Documentation
+        url: https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu
   - aid: texas-a-m-university:uin-services
     name: UIN Services API
+    x-operator: institution
     description: >-
-      Texas A&M University System enterprise API to search/verify, create, and
-      update Universal Identification Numbers (UIN). Access is gated: it
-      requires registering an application, subscribing to UIN Proxy Services v3
-      in the API Catalog, and approval by the System Enterprise Applications
-      (SEA) DevOps group. Uses x-api-key authentication.
+      Texas A&M University System enterprise API to search, verify, create and update Universal
+      Identification Numbers. Gated: access requires registering an application, subscribing to UIN
+      Proxy Services v3 in the System API Catalog, and approval by the System Enterprise Applications
+      DevOps group, with x-api-key authentication. The documentation page and the developer portal
+      both return 200, but every unauthenticated portal discovery route tried returned 404, so no
+      base URL and no specification is published. Inventoried from Texas A&M's own documentation and
+      never described here as callable.
     humanURL: https://it.tamus.edu/uinmanager/api/
     tags: [ Identity, Enterprise, Gated ]
     properties:
@@ -83,21 +300,125 @@ apis:
         url: https://api-doc.sea.system.tamus.edu/
       - type: Authentication
         url: https://it.tamus.edu/uinmanager/api/
+  - aid: texas-a-m-university:course-catalog
+    name: Texas A&M Course Catalog (CourseLeaf)
+    x-operator: tenant
+    description: >-
+      The Texas A&M academic catalog runs on Leepfrog CourseLeaf at catalog.tamu.edu. Its
+      machine-readable course-detail route answered 200 as text/xml on 2026-09-01 for
+      /ribbit/?page=getcourse.rjs&code=ENGR%20102, returning a courseinfo document with the course
+      block. The host and the catalog content are Texas A&M's; the endpoint shape and the software
+      are CourseLeaf's, shared by every CourseLeaf customer, so the relationship is recorded as a
+      tenancy and no contract is saved under Texas A&M's name.
+    humanURL: https://catalog.tamu.edu/
+    baseURL: https://catalog.tamu.edu/ribbit/
+    tags: [ Course Catalog, Curriculum, CourseLeaf ]
+    properties:
+      - type: Example
+        url: examples/texas-a-m-university-courseleaf-course-example.xml
+      - type: Documentation
+        url: https://catalog.tamu.edu/
+  - aid: texas-a-m-university:canvas-lms
+    name: Canvas Learning Management System (tenancy)
+    x-operator: tenant
+    description: >-
+      Texas A&M's learning management system is Instructure Canvas: canvas.tamu.edu is a CNAME to
+      texasam-vanity.instructure.com. The tenancy is a real institutional fact and is recorded here;
+      the Canvas REST API, its OAuth flows and any LTI conformance are Instructure's contract and are
+      not saved under Texas A&M's name.
+    humanURL: https://canvas.tamu.edu/
+    tags: [ Learning Management, LMS, Canvas ]
+    properties:
+      - type: Documentation
+        url: https://canvas.tamu.edu/
+  - aid: texas-a-m-university:datacite-membership
+    name: DataCite Registrant — Texas A&M Libraries
+    x-operator: registry
+    description: >-
+      Texas A&M Libraries is a DataCite consortium organization (provider CXAU) whose record carries
+      Texas A&M University's own ROR id, https://ror.org/01f5ytq51, and which owns the repository
+      client TDL.TAMU, "Texas A&M University Libraries", registered in 2018. DOI prefix 10.21423 is
+      bound to that client and 8,925 DOIs are registered under it. This is a membership fact about
+      the institution; DataCite's own API contract is never saved as Texas A&M's.
+    humanURL: https://commons.datacite.org/providers/cxau
+    baseURL: https://api.datacite.org/clients/tdl.tamu
+    tags: [ Research Data, DOI, DataCite, Registry ]
+    properties:
+      - type: Documentation
+        url: https://api.datacite.org/providers/cxau
+      - type: Conformance
+        url: conformance/texas-a-m-university-domain-standards.yml
+  - aid: texas-a-m-university:crossref-membership
+    name: Crossref Member — Texas A&M University Libraries
+    x-operator: registry
+    description: >-
+      Texas A&M University Libraries is Crossref member 14385, holding DOI prefix 10.21423 with 7,464
+      registered DOIs (706 current, 6,758 backfile) as of 2026-09-01. The same prefix is registered
+      at DataCite, a dual-registrant relationship that is uncommon in this cohort. Membership is
+      recorded; Crossref's own API contract is not saved as Texas A&M's.
+    humanURL: https://www.crossref.org/
+    baseURL: https://api.crossref.org/members/14385
+    tags: [ Research Data, DOI, Crossref, Registry ]
+    properties:
+      - type: Documentation
+        url: https://api.crossref.org/members/14385
+      - type: Conformance
+        url: conformance/texas-a-m-university-domain-standards.yml
+  - aid: texas-a-m-university:ror-registration
+    name: ROR Registration
+    x-operator: registry
+    description: >-
+      Texas A&M University is registered in the Research Organization Registry as
+      https://ror.org/01f5ytq51, with domain tamu.edu, established 1876, types education and funder,
+      and cross-references to GRID grid.264756.4, ISNI 0000 0004 4687 2082, Wikidata Q49212 and 21
+      Crossref Funder Registry identifiers. Verified 200 on 2026-09-01.
+    humanURL: https://ror.org/01f5ytq51
+    baseURL: https://api.ror.org/organizations/https://ror.org/01f5ytq51
+    tags: [ Registry, ROR, Identifiers, Research ]
+    properties:
+      - type: Documentation
+        url: https://ror.org/01f5ytq51
 common:
-  - type: VulnerabilityDisclosure
-    url: security/texas-a-m-university-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/texas-a-m-university-domain-security.yml
   - type: Website
     url: https://www.tamu.edu
   - type: DeveloperPortal
     url: https://api-doc.sea.system.tamus.edu/
+  - type: Documentation
+    url: https://geoservices.tamu.edu/Services/Geocode/WebService/Details/
+  - type: APIReference
+    url: https://it.tamus.edu/uinmanager/api/
+  - type: TermsOfService
+    url: https://geoservices.tamu.edu/About/Legal/TermsOfUse.aspx
+  - type: PrivacyPolicy
+    url: https://www.tamu.edu/statements/privacy.html
+  - type: Support
+    url: https://it.tamu.edu/
+  - type: GitHubOrganization
+    url: https://github.com/tamu-edu
   - type: GitHub
     url: https://github.com/tamu-edu
   - type: SourceCode
     url: https://github.com/TAMULib
   - type: LinkedIn
     url: https://www.linkedin.com/school/texas-a-m-university/
+  - type: ResearchRepository
+    url: https://oaktrust.library.tamu.edu/server/oai/request?verb=Identify
+  - type: LibraryCatalog
+    url: https://library.tamu.edu/
+  - type: CourseCatalog
+    url: https://catalog.tamu.edu/
+  - type: IdentityFederation
+    url: https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu
+  - type: ResearchComputing
+    url: https://hprc.tamu.edu/
+  - type: AIPolicy
+    url: https://ai.tamu.edu/teach-with-ai/use-guidelines-and-ethics.html
+  - type: AITooling
+    url: https://it.tamu.edu/ai-services/index.html
+  - type: VulnerabilityDisclosure
+    url: security/texas-a-m-university-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/texas-a-m-university-domain-security.yml
   - type: Plans
     url: plans/texas-a-m-university-plans-pricing.yml
   - type: RateLimits
@@ -106,6 +427,12 @@ common:
     url: finops/texas-a-m-university-finops.yml
   - type: Review
     url: review.yml
+  - type: x-authentication
+    url: authentication/texas-a-m-university-authentication.yml
+  - type: x-errors
+    url: errors/texas-a-m-university-errors.yml
+  - type: x-conformance
+    url: conformance/texas-a-m-university-domain-standards.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
