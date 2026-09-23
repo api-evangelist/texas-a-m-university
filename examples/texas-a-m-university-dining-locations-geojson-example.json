@@ -1,0 +1,85 @@
+{
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "probed",
+    "source": "https://api.aggiemap.tamu.edu/dining/locations/geojson \u2014 HTTP 200, application/json, 57929 bytes, 54 features, fetched 2026-09-01. Trimmed to the first 3 features; nothing else altered."
+  },
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.34412935186765,
+          30.617141042891
+        ]
+      },
+      "properties": {
+        "id": "5873c5f43191a200e44eba43",
+        "name": "1876 Burgers - Sbisa Complex",
+        "occupancy": "na",
+        "open": "true",
+        "description": "<p>Located within the Sbisa Underground Food Court at Texas A&amp;M University, 1876 Burgers offers a variety of classic American comfort foods, including mouthwatering burgers, crispy fries, sandwiches, and fresh salads.</p>\n",
+        "short_description": "Located within the Sbisa Underground Food Court at Texas A&M University, 1876 Burgers offers a variety of classic American comfort foods, including mouthwatering burgers, crispy fries, sandwiches, and fresh salads.",
+        "type": "fixed",
+        "color": "green",
+        "label": "open",
+        "message": "Open. Closes at 9:00pm.",
+        "street": "233 Houston St.",
+        "city": "College Station",
+        "state": "TX"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.33607513173831,
+          30.615459649796595
+        ]
+      },
+      "properties": {
+        "id": "59972586ee596fe55d2eef75",
+        "name": "The Commons Dining Hall (South Campus)",
+        "occupancy": "na",
+        "open": "true",
+        "description": "<p>Enjoy all-you-care-to-eat style dining at the Commons Dining Hall! Established in 1971, this dining hall offers menu selections that include home-style fare, build-your-own stirfry, vegan, vegetarian, all-day breakfast, and more! Keep an eye on our events page for our themed events, such as Late Night Food Festival!</p>\n",
+        "short_description": "Enjoy all-you-care-to-eat style dining at the Commons Dining Hall! Established in 1971, this dining hall offers menu selections that include home-style fare, build-your-own stirfry, vegan, vegetarian, all-day breakfast, and more! Keep an eye on our events page for our themed events, such as Late Night Food Festival!",
+        "type": "fixed",
+        "color": "green",
+        "label": "open",
+        "message": "Open. Closes at 2:30pm.",
+        "street": "676 Lubbock St.",
+        "city": "College Station",
+        "state": "TX"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.33585525461392,
+          30.615206039794952
+        ]
+      },
+      "properties": {
+        "id": "5f467b29a38afc0df02c9b2a",
+        "name": "Aggie Express - Commons",
+        "occupancy": "na",
+        "open": "true",
+        "description": "<p>Whether you're on the go and need a snack, or forget a scantron before an exam, Aggie Express has got you covered! These convenience store&nbsp;locations carry all things from fresh sushi to phone chargers and school supplies. Aggie Express makes it convenient to find the things you need!</p>\n",
+        "short_description": "Whether you're on the go and need a snack, or forget a scantron before an exam, Aggie Express has got you covered! These convenience store locations carry all things from fresh sushi to phone chargers and school supplies. Aggie Express makes it convenient to find the things you need!",
+        "type": "fixed",
+        "color": "green",
+        "label": "open",
+        "message": "Open. Closes at 12:00am.",
+        "street": "676 Lubbock St,",
+        "city": "college station",
+        "state": "texas"
+      }
+    }
+  ]
+}

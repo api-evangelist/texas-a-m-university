@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+x-method: harvested
+generated: 2026-09-01
+method: probed
+source: https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu - HTTP 200, application/samlmetadata+xml, 7079 bytes, fetched 2026-09-01. Verbatim InCommon per-entity SAML 2.0 metadata for Texas A&M University.
+-->
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" ID="_54622069-7a10-4cc1-9c53-7c2327c2e8d5" entityID="urn:mace:incommon:tamu.edu" validUntil="2026-09-15T16:37:08.222Z"><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><Reference URI="#_54622069-7a10-4cc1-9c53-7c2327c2e8d5"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><DigestValue>KlvQ6Z8unEpKiBKY2rh8dAjTXL9LYwwnR0kUkrvblyw=</DigestValue></Reference></SignedInfo><SignatureValue>XsWV+ZT5VlBWDbmgr/u5YKOWOsnHJss/BWXKJX1wqrOy0jKLMmyhkhlnFplf8uwVTQLE6gTxOrIJ
+VMTh4PRANGApQQBDsCioDKzWiPVxB8vM801Z40vCMnuNHIsxHgaWQ9E7V3jyh7Lwo1Xwr34jBU2B
+tkSUcZihgDJ67Hacbv+Q5/8EakfydkpEMmBQLgImDa90ETEMEjwhz67E8yPi/uSNq01YAffrZvRN
+8qJaD9DGAadn1f7XbqTQ+euYqifbtpAdJ16s0Mw2OHnxo4/ZYN4oRPjFjyocyWjDLyI7cfKuJXRy
+vuvDcPdutk058Xnf56oguA1ySJ2qThVPkSzgKIgkqhcoTkxeY16e9L/JvsCWwHfI/1SW160npyix
+iuhfkg8enQC3Obqxu8KWFlPDX+lxDivhog51xPwJKtgmXgUgXmDOfTG8GgJZ22vkjRQnN+4l/tIb
+ksrHJKdfD0hlraRX6I+SXObjUE4/IE/oeWSAyoDahGHxHxyIQwdjaTgo</SignatureValue></Signature>
+  <Extensions>
+    <mdrpi:RegistrationInfo xmlns:mdrpi="urn:oasis:names:tc:SAML:metadata:rpi" registrationAuthority="https://incommon.org"/>
+    <mdattr:EntityAttributes xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute">
+      <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="http://macedir.org/entity-category-support" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue>http://id.incommon.org/category/research-and-scholarship</saml:AttributeValue>
+        <saml:AttributeValue>http://refeds.org/category/research-and-scholarship</saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="urn:oasis:names:tc:SAML:attribute:assurance-certification" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue>https://refeds.org/sirtfi</saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="http://macedir.org/entity-category" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue>http://id.incommon.org/category/registered-by-incommon</saml:AttributeValue>
+      </saml:Attribute>
+    </mdattr:EntityAttributes>
+  </Extensions>
+  <IDPSSODescriptor errorURL="https://it.tamu.edu/help" protocolSupportEnumeration="urn:mace:shibboleth:1.0 urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:2.0:protocol">
+    <Extensions>
+      <shibmd:Scope xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" regexp="false">tamu.edu</shibmd:Scope>
+      <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:DisplayName xml:lang="en">Texas A&amp;M University</mdui:DisplayName>
+        <mdui:InformationURL xml:lang="en">https://docs.identity.tamu.edu/</mdui:InformationURL>
+        <mdui:PrivacyStatementURL xml:lang="en">https://www.tamu.edu/statements/privacy.html</mdui:PrivacyStatementURL>
+        <mdui:Logo height="146" width="63" xml:lang="en">https://idp.tamu.edu/images/TAM-PrimaryMarkA.png</mdui:Logo>
+      </mdui:UIInfo>
+    </Extensions>
+    <KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <!-- Serial No. 9684005897057623721, expires on Thu Jan 21 14:51:17 2027 GMT -->
+          <ds:X509Certificate>
+MIIEwTCCA6mgAwIBAgIJAIZkgA4o6F6pMA0GCSqGSIb3DQEBCwUAMIGbMQswCQYD
+VQQGEwJVUzELMAkGA1UECBMCVFgxGDAWBgNVBAcTD0NvbGxlZ2UgU3RhdGlvbjEh
+MB8GA1UEChMYVGV4YXMgQSBhbmQgTSBVbml2ZXJzaXR5MSswKQYDVQQLEyJDb21w
+dXRpbmcgYW5kIEluZm9ybWF0aW9uIFNlcnZpY2VzMRUwEwYDVQQDEwxpZHAudGFt
+dS5lZHUwHhcNMTcwMTIzMTQ1MTE3WhcNMjcwMTIxMTQ1MTE3WjCBmzELMAkGA1UE
+BhMCVVMxCzAJBgNVBAgTAlRYMRgwFgYDVQQHEw9Db2xsZWdlIFN0YXRpb24xITAf
+BgNVBAoTGFRleGFzIEEgYW5kIE0gVW5pdmVyc2l0eTErMCkGA1UECxMiQ29tcHV0
+aW5nIGFuZCBJbmZvcm1hdGlvbiBTZXJ2aWNlczEVMBMGA1UEAxMMaWRwLnRhbXUu
+ZWR1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA75WDqcDrNZqYi3GI
+grguZ0kneJIgZekZjTDCimVe7bTKRynVgZp6bW3KBCkMtqkIediDcTZ3BMBm67LM
+Hz5m+khJE5NF699d6L6PeuxM9ldj6wQHiT3U2/0Cqo70xdjQaOvMqwnKEtLGS6kV
+dgoQbXuMVkxyAxc9ryjBNE0YKsoQNm7Z9vUo67lkvTuGmJOWZTrCfJD4dQozQlJH
+JFYCTdYB27sm4+wflXJRI1ItDEzconIhYFeS609vBZD6mhvJo2vM4ATda/dVai6l
+TbaNJsRSqk2C6plULDUKEzncQ1cb+/tzdbKexCBur0IQyTq4kFPfo6BDhjsMi7Tj
+ewuLEwIDAQABo4IBBDCCAQAwHQYDVR0OBBYEFDvKkqQq/m5u1A8+kXwfsfVXrVHu
+MIHQBgNVHSMEgcgwgcWAFDvKkqQq/m5u1A8+kXwfsfVXrVHuoYGhpIGeMIGbMQsw
+CQYDVQQGEwJVUzELMAkGA1UECBMCVFgxGDAWBgNVBAcTD0NvbGxlZ2UgU3RhdGlv
+bjEhMB8GA1UEChMYVGV4YXMgQSBhbmQgTSBVbml2ZXJzaXR5MSswKQYDVQQLEyJD
+b21wdXRpbmcgYW5kIEluZm9ybWF0aW9uIFNlcnZpY2VzMRUwEwYDVQQDEwxpZHAu
+dGFtdS5lZHWCCQCGZIAOKOheqTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUA
+A4IBAQDCP69sSOUglbiuSktLkP9UuF5hLNuPhHQtpDgxKEKK/UHc3lBUSvPMXvLu
+C3IGM/+IdUABR6D8Vn4oRVklylsfOkUYi3oZoO5xXC0pigBMxrihbZx2c7ka4K0u
+b0JY1+QtWWcJlpG6nHp2svJHC5NW443r8jGQhnhdwThU0BLYYi2P+RjURd0JgQGp
+BChSSGrKv0usm2Cuzi84j1xAhJ8LD42MefWJA0lRNEDKBpcY3ENjIPwQsvjM4uqc
+QHUqd0O+WRxFO0ZxyF8pUHla3dOS/VXG28H6AprII/guLL8vpU5o0BaK1JJcv1FW
+xh/aBOdrt2PA3SNRm4sbABLq+K2b
+          </ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </KeyDescriptor>
+    <SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://idp.tamu.edu/idp/profile/Shibboleth/SSO"/>
+    <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://idp.tamu.edu/idp/profile/SAML2/POST/SSO"/>
+    <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.tamu.edu/idp/profile/SAML2/Redirect/SSO"/>
+  </IDPSSODescriptor>
+  <Organization>
+    <OrganizationName xml:lang="en">Texas A&amp;M University</OrganizationName>
+    <OrganizationDisplayName xml:lang="en">Texas A&amp;M University</OrganizationDisplayName>
+    <OrganizationURL xml:lang="en">http://www.tamu.edu/</OrganizationURL>
+  </Organization>
+  <ContactPerson contactType="technical">
+    <GivenName>Identity Management Office</GivenName>
+    <EmailAddress>mailto:identity@tamu.edu</EmailAddress>
+  </ContactPerson>
+  <ContactPerson contactType="administrative">
+    <GivenName>Identity Management Office</GivenName>
+    <EmailAddress>mailto:identity@tamu.edu</EmailAddress>
+  </ContactPerson>
+  <ContactPerson contactType="support">
+    <GivenName>IT Support</GivenName>
+    <EmailAddress>mailto:helpdesk@tamu.edu</EmailAddress>
+  </ContactPerson>
+  <ContactPerson xmlns:remd="http://refeds.org/metadata" contactType="other" remd:contactType="http://refeds.org/metadata/contactType/security">
+    <GivenName>Security Response Team</GivenName>
+    <EmailAddress>mailto:security@tamu.edu</EmailAddress>
+  </ContactPerson>
+</EntityDescriptor>

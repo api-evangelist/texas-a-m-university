@@ -5,6 +5,10 @@ provider: Texas A&M University
 providerId: texas-a-m-university
 created: '2026-06-03'
 modified: '2026-06-03'
+generated: '2026-06-03'
+method: derived
+source: >-
+  Derived on 2026-06-03 from this repository's own apis.yml surface inventory, not from a published Texas A&M pricing page. Texas A&M publishes no commercial API pricing; re-checked 2026-09-01 and still accurate.
 reconciled: false
 tags:
 - Education

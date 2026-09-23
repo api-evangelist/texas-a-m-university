@@ -1,0 +1,100 @@
+# x-method: derived
+# Authored by API Evangelist from live probes and published documentation on 2026-09-01.
+# The in-file `method:` records HOW the evidence was obtained (probed / derived);
+# this line records WHO WROTE THE FILE, in the provenance manifest's vocabulary.
+openapi: 3.2.0
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: >-
+    https://idp.tamu.edu/idp/shibboleth returned HTTP 200 with content-type
+    application/xml;charset=utf-8 and a SAML 2.0 EntityDescriptor whose entityID is
+    urn:mace:tamu.edu:shibboleth:idp:tamu:administrative:cscn:idp.tamu.edu (probed 2026-09-01).
+    https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu returned HTTP 200,
+    application/samlmetadata+xml, 7,079 bytes, carrying mdui:DisplayName "Texas A&M University" and
+    SingleSignOnService Locations at https://idp.tamu.edu/idp/profile/SAML2/{POST,Redirect}/SSO and
+    https://idp.tamu.edu/idp/profile/Shibboleth/SSO. Five other candidate entityIDs
+    (https://idp.tamu.edu/idp/shibboleth, https://shib.tamu.edu/idp/shibboleth,
+    https://sso.tamu.edu/idp/shibboleth, https://gateway.tamu.edu/idp/shibboleth) returned 404 from
+    the MDQ service; urn:mace:incommon:tamu.edu is the registered one.
+  x-operator: institution
+info:
+  title: Texas A&M University Identity Federation Metadata
+  version: '2.0'
+  description: >-
+    SAML 2.0 metadata for Texas A&M University's own Shibboleth Identity Provider, published
+    unauthenticated from the university's host idp.tamu.edu and registered in the InCommon
+    federation under entityID urn:mace:incommon:tamu.edu, which carries it into eduGAIN
+    interfederation.
+
+    This is the surface class the June 2026 university cohort was most completely missing, and it is
+    unambiguously institution-operated: a federation is shared by definition, but the identity
+    provider behind the entry is the university's. It evidences two of the Kin Score education
+    regime's domain standards — shibboleth and saml — from a document that can be fetched and parsed.
+  contact:
+    name: Texas A&M University IT
+    url: https://it.tamu.edu/
+servers:
+- url: https://idp.tamu.edu
+  description: Texas A&M Shibboleth Identity Provider
+- url: https://mdq.incommon.org
+  description: InCommon per-entity metadata query service (federation-operated, entity is Texas A&M's)
+tags:
+- name: Federation
+  description: SAML 2.0 identity federation metadata.
+paths:
+  /idp/shibboleth:
+    servers:
+    - url: https://idp.tamu.edu
+    get:
+      tags:
+      - Federation
+      operationId: getIdpMetadata
+      summary: Retrieve Texas A&M's SAML 2.0 identity provider metadata
+      description: >-
+        Returns the SAML 2.0 EntityDescriptor for the Texas A&M University Shibboleth Identity
+        Provider, including key descriptors, supported protocols and SingleSignOnService endpoints.
+        Verified 200 with content-type application/xml on 2026-09-01; the entityID served here is
+        urn:mace:tamu.edu:shibboleth:idp:tamu:administrative:cscn:idp.tamu.edu.
+      responses:
+        '200':
+          description: SAML 2.0 EntityDescriptor document.
+          content:
+            application/xml:
+              schema:
+                type: string
+                format: xml
+                description: urn:oasis:names:tc:SAML:2.0:metadata EntityDescriptor.
+  /entities/{entityId}:
+    servers:
+    - url: https://mdq.incommon.org
+    get:
+      tags:
+      - Federation
+      operationId: getInCommonEntity
+      summary: Retrieve the InCommon-registered entity for Texas A&M
+      description: >-
+        Metadata Query Protocol lookup of Texas A&M University's InCommon registration. Verified 200
+        on 2026-09-01 for the URL-encoded entityID urn:mace:incommon:tamu.edu. The MDQ service is
+        operated by InCommon; the entity it returns is Texas A&M's.
+      parameters:
+      - name: entityId
+        in: path
+        required: true
+        description: URL-encoded SAML entityID. For Texas A&M, urn%3Amace%3Aincommon%3Atamu.edu.
+        schema:
+          type: string
+          example: urn%3Amace%3Aincommon%3Atamu.edu
+      responses:
+        '200':
+          description: Signed SAML 2.0 EntityDescriptor as application/samlmetadata+xml.
+          content:
+            application/samlmetadata+xml:
+              schema:
+                type: string
+                format: xml
+        '404':
+          description: No such entityID registered in InCommon.
+externalDocs:
+  description: SAML V2.0 Metadata specification
+  url: https://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf

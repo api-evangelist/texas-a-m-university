@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/texas-a-m-university/refs/heads/main/json-schema/texas-a-m-university-dining-location.json",
+  "title": "Texas A&M Aggie Map Dining Location",
+  "description": "GeoJSON FeatureCollection of Texas A&M University campus dining locations as served by api.aggiemap.tamu.edu. Every constraint below is read from a live payload; nothing is assumed.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "Derived from the observed response of https://api.aggiemap.tamu.edu/dining/locations/geojson (HTTP 200, application/json, 57929 bytes, 54 features, fetched 2026-09-01). Texas A&M publishes no schema for this host; this is our reading of the payload, not the university's contract.",
+    "x-operator": "institution"
+  },
+  "type": "object",
+  "required": ["type", "features"],
+  "properties": {
+    "type": { "const": "FeatureCollection" },
+    "features": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/DiningFeature" }
+    }
+  },
+  "$defs": {
+    "DiningFeature": {
+      "type": "object",
+      "required": ["type", "geometry", "properties"],
+      "properties": {
+        "type": { "const": "Feature" },
+        "geometry": { "$ref": "#/$defs/PointGeometry" },
+        "properties": { "$ref": "#/$defs/DiningProperties" }
+      }
+    },
+    "PointGeometry": {
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": { "const": "Point" },
+        "coordinates": {
+          "type": "array",
+          "description": "[longitude, latitude] in WGS 84.",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        }
+      }
+    },
+    "DiningProperties": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Opaque 24-character hexadecimal location identifier." },
+        "name": { "type": "string" },
+        "occupancy": { "type": "string", "description": "Occupancy signal. The token \"na\" is used where no reading is available." },
+        "open": { "type": "string", "enum": ["true", "false"], "description": "Stringified boolean, not a JSON boolean, in the observed payload." },
+        "description": { "type": "string", "description": "HTML fragment." },
+        "short_description": { "type": "string" },
+        "type": { "type": "string", "description": "Location type. \"fixed\" observed." },
+        "color": { "type": "string" },
+        "label": { "type": "string" },
+        "message": { "type": "string" },
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" }
+      }
+    }
+  }
+}

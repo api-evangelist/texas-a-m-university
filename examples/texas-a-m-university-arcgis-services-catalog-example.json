@@ -1,0 +1,25 @@
+{
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "probed",
+    "source": "https://gis.it.tamu.edu/arcgis/rest/services?f=json \u2014 HTTP 200, application/json, fetched 2026-09-01. Verbatim ArcGIS REST Services Directory catalog root for the Texas A&M IT ArcGIS Server."
+  },
+  "catalog": {
+    "currentVersion": 11.5,
+    "folders": [
+      "FCOR",
+      "Hosted",
+      "Routing",
+      "System",
+      "Testing",
+      "TS",
+      "Utilities"
+    ],
+    "services": [
+      {
+        "name": "SampleWorldCities",
+        "type": "MapServer"
+      }
+    ]
+  }
+}

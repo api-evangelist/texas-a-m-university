@@ -1,0 +1,103 @@
+# x-method: derived
+# Authored by API Evangelist from live probes and published documentation on 2026-09-01.
+# The in-file `method:` records HOW the evidence was obtained (probed / derived);
+# this line records WHO WROTE THE FILE, in the provenance manifest's vocabulary.
+generated: '2026-09-01'
+method: probed
+source: >-
+  Error responses captured from live anonymous calls on 2026-09-01 to
+  https://geoservices.tamu.edu/Api/Geocode/V5/, https://api.aggiemap.tamu.edu/,
+  https://oaktrust.library.tamu.edu/ and https://api-doc.sea.system.tamus.edu/. Every entry below is
+  a body that was actually returned; nothing is projected from documentation.
+description: >-
+  Error behaviour across Texas A&M University's public surfaces. The finding worth carrying forward
+  is that the university's flagship API, GeoServices Geocoding, signals every failure with HTTP 200
+  and an in-body status code — so transport-level health checks cannot see its failures at all.
+errors:
+- surface: Texas A&M GeoServices Geocoding API
+  x-operator: institution
+  transport_status: 200
+  pattern: in_body_status
+  description: >-
+    Failures are returned as HTTP 200 with a JSON envelope carrying statusCode, message, error and a
+    data.queryStatusCode. The HTTP layer never reflects the outcome.
+  observed:
+  - url: https://geoservices.tamu.edu/Api/Geocode/V5/
+    http_status: 200
+    body_status: 402
+    code: Version Error
+    message: 'Supplied version: 0.0 is not supported for this assembly: 5.0.0.0. See API page for details.'
+  - url: https://geoservices.tamu.edu/Api/Geocode/V5/?version=5.0.0&streetAddress=1101%20Texas%20Ave&city=College%20Station&state=TX&zip=77840&format=json
+    http_status: 200
+    body_status: 401
+    code: APIKeyMissing
+    message: API Key Missing
+    note: >-
+      The 401 envelope also echoes a fully null inputParameterSet, which is a useful shape signal:
+      parameters are not parsed before authentication is checked.
+  example: examples/texas-a-m-university-geocode-apikeymissing-example.json
+- surface: Texas A&M GeoServices site
+  x-operator: institution
+  transport_status: 200
+  pattern: redirect_to_error_page
+  description: >-
+    A request for a resource the ASP.NET application cannot serve is 302-redirected to
+    /Support/ServerError.aspx with a correlation guid, and that page returns HTTP 200. A consumer
+    following redirects therefore receives a 200 HTML page in place of the requested document.
+  observed:
+  - url: https://geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsed_V04_01.asmx?WSDL
+    http_status: 200
+    effective_url: https://geoservices.tamu.edu/Support/ServerError.aspx?guid=64756cf1-b303-4e67-bade-792f5313209b
+    note: >-
+      The v4 SOAP WSDL is advertised in Texas A&M's own documentation but does not resolve. Recorded
+      as a live defect on an institution-operated surface, and deliberately not catalogued as a
+      working WSDL.
+- surface: Aggie Map application backend
+  x-operator: institution
+  pattern: mixed
+  description: >-
+    Two different 404 bodies come back from the same host depending on which tier answers: nginx
+    HTML for an unrouted path, and a NestJS-style JSON envelope for a routed prefix with an unknown
+    sub-path.
+  observed:
+  - url: https://api.aggiemap.tamu.edu/dining
+    http_status: 404
+    body: nginx HTML 404 page
+  - url: https://api.aggiemap.tamu.edu/dining/menus
+    http_status: 404
+    body: '{"message":"Cannot GET /menus","error":"Not Found","statusCode":404}'
+- surface: OAKTrust / Scholars@TAMU (library.tamu.edu subdomains)
+  x-operator: institution
+  pattern: edge_bot_challenge
+  description: >-
+    A Cloudflare managed challenge answers automated requests with HTTP 403 and a "Just a moment…"
+    interstitial, even with a browser User-Agent. This is a fact about our access, not an outage.
+  observed:
+  - url: https://oaktrust.library.tamu.edu/server/api
+    http_status: 403
+  - url: https://scholars.library.tamu.edu/
+    http_status: 403
+  - url: https://hprc.tamu.edu/
+    http_status: 403
+- surface: Texas A&M University System API Developer Portal
+  x-operator: institution
+  pattern: no_anonymous_discovery
+  description: >-
+    Every unauthenticated discovery route tried on the portal returns a bare HTTP 404 with an
+    iso-8859-1 HTML body and no payload, so the enterprise API catalog cannot be enumerated at all
+    without a sponsored account.
+  observed:
+  - url: https://api-doc.sea.system.tamus.edu/api/portal/v1.3/discovery/apis
+    http_status: 404
+  - url: https://api-doc.sea.system.tamus.edu/api/portal/v1.3/proxies
+    http_status: 404
+- surface: data.tamu.edu
+  x-operator: institution
+  pattern: host_unreachable
+  description: >-
+    data.tamu.edu resolves in DNS (CNAME weasel.tamu.edu, A 128.194.112.43) but every HTTPS
+    connection attempt timed out at 25 seconds. Recorded as a dead pointer rather than a data portal.
+  observed:
+  - url: https://data.tamu.edu/
+    http_status: 0
+    note: curl exit 28, connection timed out

@@ -1,0 +1,149 @@
+# x-archived-from: texas-a-m-university-aggiemap-dining-openapi.yml
+# x-archived-on: 2026-09-16
+# x-method: derived
+# Authored by API Evangelist from live probes and published documentation on 2026-09-01.
+# The in-file `method:` records HOW the evidence was obtained (probed / derived);
+# this line records WHO WROTE THE FILE, in the provenance manifest's vocabulary.
+openapi: 3.2.0
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: >-
+    Discovered by reading the Aggie Map single-page application bundle at
+    https://aggiemap.tamu.edu/main.c63a5258155f6cb9.js (HTTP 200, 2026-09-01), which names
+    https://api.aggiemap.tamu.edu/dining and /dining/locations/geojson. Both paths were then fetched
+    anonymously: /dining/locations/geojson returned HTTP 200, application/json, 57,929 bytes, a
+    GeoJSON FeatureCollection of 54 campus dining features; /dining/locations returned HTTP 200 with
+    an empty body; /dining returned 404 from nginx. Schema below is read from the observed payload.
+  x-operator: institution
+info:
+  title: Texas A&M Aggie Map Dining Locations API
+  version: 1.0.0
+  description: >-
+    Read-only GeoJSON feed of Texas A&M University campus dining locations, their live open/closed
+    state and their occupancy signal, served by the university's own Aggie Map backend at
+    api.aggiemap.tamu.edu. Institution-operated: the host is under Texas A&M's registrable domain
+    and the data is the university's own campus operations data, not a platform vendor's.
+
+    Undocumented by the university. Texas A&M publishes no developer portal, no terms of use and no
+    rate limit for this host; it is a public backend behind the Aggie Map web application. It answers
+    anonymously and needs no key. Treat availability as unguaranteed.
+  contact:
+    name: Texas A&M University Aggie Map
+    url: https://aggiemap.tamu.edu/
+servers:
+- url: https://api.aggiemap.tamu.edu
+  description: Aggie Map application backend
+tags:
+- name: Dining
+  description: Campus dining locations and live status.
+paths:
+  /dining/locations/geojson:
+    get:
+      tags:
+      - Dining
+      operationId: getDiningLocationsGeoJson
+      summary: List campus dining locations as GeoJSON
+      description: >-
+        Returns every Texas A&M campus dining location as a GeoJSON Point feature carrying the
+        location name, street address, a description, an open flag, a human-readable status message
+        and an occupancy signal. Verified 200 on 2026-09-01 returning 54 features.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of dining locations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiningFeatureCollection'
+  /dining/locations:
+    get:
+      tags:
+      - Dining
+      operationId: getDiningLocations
+      summary: Dining locations (non-GeoJSON form)
+      description: >-
+        Sibling of the GeoJSON route named by the Aggie Map bundle. Verified 200 on 2026-09-01 but
+        returned an empty body with no content-type, so no response schema is asserted here. Recorded
+        because the route exists, not because its payload is known.
+      responses:
+        '200':
+          description: Empty body observed. Payload shape not established.
+components:
+  schemas:
+    DiningFeatureCollection:
+      type: object
+      required: [type, features]
+      properties:
+        type:
+          type: string
+          enum: [FeatureCollection]
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiningFeature'
+    DiningFeature:
+      type: object
+      required: [type, geometry, properties]
+      properties:
+        type:
+          type: string
+          enum: [Feature]
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/DiningProperties'
+    PointGeometry:
+      type: object
+      required: [type, coordinates]
+      properties:
+        type:
+          type: string
+          enum: [Point]
+        coordinates:
+          type: array
+          description: '[longitude, latitude] in WGS 84.'
+          minItems: 2
+          maxItems: 2
+          items:
+            type: number
+    DiningProperties:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Opaque location identifier.
+          example: 5873c5f43191a200e44eba43
+        name:
+          type: string
+          example: 1876 Burgers - Sbisa Complex
+        occupancy:
+          type: string
+          description: Occupancy signal. "na" observed where no sensor reading is available.
+          example: na
+        open:
+          type: string
+          description: Stringified boolean, not a JSON boolean, in the observed payload.
+          enum: ['true', 'false']
+        description:
+          type: string
+          description: HTML description fragment.
+        short_description:
+          type: string
+        type:
+          type: string
+          description: Location type. "fixed" observed.
+        color:
+          type: string
+          description: Display colour keyed to status, e.g. green.
+        label:
+          type: string
+          description: Short status label, e.g. open.
+        message:
+          type: string
+          example: Open. Closes at 9:00pm.
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string

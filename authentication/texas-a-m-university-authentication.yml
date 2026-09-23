@@ -1,0 +1,138 @@
+# x-method: derived
+# Authored by API Evangelist from live probes and published documentation on 2026-09-01.
+# The in-file `method:` records HOW the evidence was obtained (probed / derived);
+# this line records WHO WROTE THE FILE, in the provenance manifest's vocabulary.
+generated: '2026-09-01'
+method: probed
+source: >-
+  Live anonymous probes on 2026-09-01 of geoservices.tamu.edu, api.aggiemap.tamu.edu,
+  veoride.geoservices.tamu.edu, gis.it.tamu.edu, idp.tamu.edu, mdq.incommon.org,
+  oaktrust.library.tamu.edu, catalog.tamu.edu and api-doc.sea.system.tamus.edu, plus the published
+  access policy at https://it.tamus.edu/uinmanager/api/.
+description: >-
+  How authentication works across the Texas A&M University surfaces this repository records. The
+  estate splits three ways: a small set of open, unauthenticated campus and geospatial feeds; one
+  key-gated but freely self-serve research API; and an enterprise tier at the Texas A&M University
+  System that cannot be reached at all without a sponsored account.
+authentication:
+- surface: Texas A&M GeoServices Geocoding API
+  base_url: https://geoservices.tamu.edu/Api/Geocode/V5
+  x-operator: institution
+  scheme: api_key
+  mechanism: apiKey query parameter
+  public: true
+  self_service: true
+  evidence:
+  - url: https://geoservices.tamu.edu/Api/Geocode/V5/?version=5.0.0&streetAddress=1101%20Texas%20Ave&city=College%20Station&state=TX&zip=77840&format=json
+    status: 200
+    location: body.statusCode = 401, body.message = "APIKeyMissing", body.data.queryStatusCode = "APIKeyMissing"
+  - url: https://geoservices.tamu.edu/Signup/
+    status: 200
+    location: public self-service account signup issuing the API key
+  note: >-
+    The key travels in the query string, not a header. Texas A&M returns HTTP 200 for an
+    unauthenticated call and carries the real 401 inside the JSON body, which means naive status-code
+    monitoring will read this API as healthy while every request is failing.
+- surface: Aggie Map Dining Locations API
+  base_url: https://api.aggiemap.tamu.edu
+  x-operator: institution
+  scheme: none
+  public: true
+  evidence:
+    url: https://api.aggiemap.tamu.edu/dining/locations/geojson
+    status: 200
+    location: 54-feature GeoJSON FeatureCollection returned to an anonymous request
+  note: >-
+    Open with no credential, no documented terms and no published rate limit. It is an application
+    backend, not an offered API, and should be treated as unguaranteed.
+- surface: Campus Micromobility Vehicle Positions
+  base_url: https://veoride.geoservices.tamu.edu
+  x-operator: institution
+  scheme: none
+  public: true
+  evidence:
+    url: https://veoride.geoservices.tamu.edu/api/vehicles/basic/geojson
+    status: 200
+    location: 3,300-feature GeoJSON FeatureCollection returned to an anonymous request
+- surface: Texas A&M IT ArcGIS REST Services
+  base_url: https://gis.it.tamu.edu/arcgis/rest/services
+  x-operator: institution
+  scheme: none
+  public: true
+  evidence:
+  - url: https://gis.it.tamu.edu/arcgis/rest/services?f=json
+    status: 200
+    location: 'currentVersion 11.5; folders FCOR, Hosted, Routing, System, Testing, TS, Utilities'
+  - url: https://gis.tamu.edu/arcgis/rest/services?f=json
+    status: 200
+    location: identical catalog served under a second Texas A&M hostname
+  note: >-
+    The services directory and its MapServer/FeatureServer children answer anonymously. The software
+    is Esri ArcGIS Server; the deployment, the hostnames and the published layers are Texas A&M's.
+- surface: OAKTrust Institutional Repository — OAI-PMH
+  base_url: https://oaktrust.library.tamu.edu/server/oai/request
+  x-operator: institution
+  scheme: none
+  public: true
+  evidence:
+  - url: https://oaktrust.library.tamu.edu/server/oai/request?verb=Identify
+    status: 200
+    location: 'OAI-PMH/Identify/repositoryName = "OAKTrust"; adminEmail helpdesk@library.tamu.edu'
+  - url: https://oaktrust.library.tamu.edu/oai/request?verb=Identify
+    status: 403
+    location: Cloudflare interstitial on the legacy DSpace 6 path
+  note: >-
+    The DSpace 7 path answers anonymously. The rest of the host — including the DSpace REST API at
+    /server/api and the Scholars@TAMU application — sits behind a Cloudflare bot challenge that
+    returns 403 to a browser User-Agent. That is a fact about our access, not about Texas A&M's
+    policy.
+- surface: Texas A&M University Identity Federation (Shibboleth IdP metadata)
+  base_url: https://idp.tamu.edu/idp/shibboleth
+  x-operator: institution
+  scheme: none
+  public: true
+  evidence:
+  - url: https://idp.tamu.edu/idp/shibboleth
+    status: 200
+    location: EntityDescriptor entityID urn:mace:tamu.edu:shibboleth:idp:tamu:administrative:cscn:idp.tamu.edu
+  - url: https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu
+    status: 200
+    location: 'mdui:DisplayName "Texas A&M University"; SSO at idp.tamu.edu'
+  note: >-
+    Metadata is public by design; the SSO endpoints it advertises are the authenticating surface for
+    everything else on campus.
+- surface: UIN Services API (Texas A&M University System)
+  base_url: not published
+  x-operator: institution
+  scheme: api_key
+  mechanism: x-api-key header
+  public: false
+  self_service: false
+  evidence:
+  - url: https://it.tamus.edu/uinmanager/api/
+    status: 200
+    location: >-
+      Access requires registering an application, subscribing to UIN Proxy Services v3 in the API
+      Catalog, and approval by the System Enterprise Applications (SEA) DevOps group
+  - url: https://api-doc.sea.system.tamus.edu/
+    status: 200
+    location: Axway-style GWT API Developer Portal shell; the catalog itself renders only after login
+  - url: https://api-doc.sea.system.tamus.edu/api/portal/v1.3/discovery/apis
+    status: 404
+    location: no unauthenticated discovery route responds on the portal
+  note: >-
+    The enterprise tier exists and is real, but no base URL, no specification and no API inventory is
+    reachable without a sponsored System account. It is inventoried from Texas A&M's own
+    documentation and is never described here as callable.
+- surface: Canvas LMS
+  base_url: https://canvas.tamu.edu
+  x-operator: tenant
+  scheme: oauth2
+  public: false
+  evidence:
+    url: dns:canvas.tamu.edu
+    status: 200
+    location: CNAME to texasam-vanity.instructure.com
+  note: >-
+    Texas A&M's Canvas tenancy is real, but the REST API, its OAuth flows and its LTI conformance are
+    Instructure's contract, not Texas A&M's. Recorded as a relationship only.

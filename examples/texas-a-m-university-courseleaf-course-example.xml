@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+x-method: harvested
+generated: 2026-09-01
+method: probed
+source: https://catalog.tamu.edu/ribbit/?page=getcourse.rjs&code=ENGR%20102 - HTTP 200, text/xml, fetched 2026-09-01. Verbatim CourseLeaf course-detail response from the Texas A&M catalog. The endpoint is on a Texas A&M host; the software and the response contract are Leepfrog CourseLeaf.
+-->
+<courseinfo>
+<course code="ENGR 102">
+<![CDATA[
+<div class="courseblock">
+<h2 class="courseblocktitle">ENGR&#160;102 Engineering Lab I - Computation</h2>
+<p class="courseblockdesc">
+<span class="hours"><strong>
+Credits 2. 
+1 Lecture Hour. 
+3 Lab Hours. 
+
+</strong></span>   Introduction to the design and development of computer applications for engineers; computation to enhance problem solving abilities; basic concepts of software design through the implementation and debugging of student-written programs; introduction to engineering majors, career exploration, engineering practice within realistic constraints, e.g. economic, environmental, ethical, health and safety, and sustainability; pathways to success in engineering. <strong>Prerequisite:</strong>  Grade of C or better in <a href="/search/?P=MATH%20151" title="MATH&#160;151" class="bubblelink code" onclick="return showCourse(this, 'MATH 151');">MATH&#160;151</a> or <a href="/search/?P=MATH%20150" title="MATH&#160;150" class="bubblelink code" onclick="return showCourse(this, 'MATH 150');">MATH&#160;150</a>, or concurrent enrollment; admission to the college of engineering.<br />
+</p>
+</div>
+]]>
+</course>
+</courseinfo>

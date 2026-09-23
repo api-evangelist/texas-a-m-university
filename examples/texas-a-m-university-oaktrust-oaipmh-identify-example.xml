@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+x-method: harvested
+generated: 2026-09-01
+method: probed
+source: https://oaktrust.library.tamu.edu/server/oai/request?verb=Identify - HTTP 200, text/xml;charset=UTF-8, fetched 2026-09-01. Verbatim OAI-PMH 2.0 Identify response for the Texas A&M University Libraries OAKTrust repository.
+-->
+<?xml-stylesheet type="text/xsl" href="static/style.xsl"?><OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"><responseDate>2026-09-01T17:09:29Z</responseDate><request verb="Identify">https://oaktrust.library.tamu.edu/server/oai/request</request><Identify><repositoryName>OAKTrust</repositoryName><baseURL>https://oaktrust.library.tamu.edu/server/oai/request</baseURL><protocolVersion>2.0</protocolVersion><adminEmail>helpdesk@library.tamu.edu</adminEmail><earliestDatestamp>2026-08-17T03:24:03Z</earliestDatestamp><deletedRecord>transient</deletedRecord><granularity>YYYY-MM-DDThh:mm:ssZ</granularity><description><oai-identifier xmlns="http://www.openarchives.org/OAI/2.0/oai-identifier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai-identifier http://www.openarchives.org/OAI/2.0/oai-identifier.xsd">
+<scheme>oai</scheme>
+<repositoryIdentifier>oaktrust.library.tamu.edu</repositoryIdentifier>
+<delimiter>:</delimiter>
+<sampleIdentifier>oai:oaktrust.library.tamu.edu:1969.1/1234</sampleIdentifier>
+</oai-identifier>
+</description></Identify></OAI-PMH>

@@ -1,0 +1,33 @@
+{
+  "provider": "texas-a-m-university",
+  "sources": [
+    "_original/texas-a-m-university-aggiemap-dining-openapi.yml",
+    "_original/texas-a-m-university-campus-micromobility-openapi.yml",
+    "_original/texas-a-m-university-geoservices-geocoding-openapi.yml",
+    "_original/texas-a-m-university-identity-federation-openapi.yml"
+  ],
+  "outputs": [
+    "texas-a-m-university-dining-api-openapi.yml",
+    "texas-a-m-university-micromobility-api-openapi.yml",
+    "texas-a-m-university-geocoding-api-openapi.yml",
+    "texas-a-m-university-federation-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "4 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/texas-a-m-university-identity-federation-openapi_2.yml: archived document superseded by a larger archived document",
+    "_original/texas-a-m-university-geoservices-geocoding-openapi_2.yml: archived document superseded by a larger archived document",
+    "_original/texas-a-m-university-campus-micromobility-openapi_2.yml: archived document superseded by a larger archived document",
+    "_original/texas-a-m-university-aggiemap-dining-openapi_2.yml: archived document superseded by a larger archived document",
+    "texas-a-m-university-dining-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "texas-a-m-university-federation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "texas-a-m-university-geocoding-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "texas-a-m-university-micromobility-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

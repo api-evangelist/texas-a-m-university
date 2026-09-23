@@ -32,5 +32,10 @@
       "humanURL": "https://it.tamus.edu/uinmanager/api/",
       "documentation": "https://api-doc.sea.system.tamus.edu/"
     }
-  ]
+  ],
+  "x-provenance": {
+    "generated": "2026-06-03",
+    "method": "derived",
+    "source": "Derived from this repository's own apis.yml identity and surface inventory. Texas A&M publishes no JSON-LD context of its own; re-checked 2026-09-01."
+  }
 }

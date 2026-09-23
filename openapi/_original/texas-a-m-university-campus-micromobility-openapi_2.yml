@@ -1,0 +1,99 @@
+# x-archived-from: texas-a-m-university-campus-micromobility-openapi.yml
+# x-archived-on: 2026-09-16
+# x-method: derived
+# Authored by API Evangelist from live probes and published documentation on 2026-09-01.
+# The in-file `method:` records HOW the evidence was obtained (probed / derived);
+# this line records WHO WROTE THE FILE, in the provenance manifest's vocabulary.
+openapi: 3.2.0
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: >-
+    Discovered in the Aggie Map application bundle
+    (https://aggiemap.tamu.edu/main.c63a5258155f6cb9.js, HTTP 200, 2026-09-01) and fetched
+    anonymously at https://veoride.geoservices.tamu.edu/api/vehicles/basic/geojson, which returned
+    HTTP 200, application/json, 342,203 bytes, a GeoJSON FeatureCollection of 3,300 Point features
+    with empty properties objects. Schema read from the observed payload.
+  x-operator: institution
+info:
+  title: Texas A&M Campus Micromobility Vehicle Positions API
+  version: 1.0.0
+  description: >-
+    Live positions of shared micromobility vehicles on and around the Texas A&M University campus,
+    served as GeoJSON from veoride.geoservices.tamu.edu — a host inside Texas A&M's own
+    geoservices.tamu.edu estate. The scooter fleet itself is operated by the vendor Veo; the feed
+    that Aggie Map consumes is published from a Texas A&M host and is therefore recorded as an
+    institution-operated surface with a vendor data origin, not as a vendor contract.
+
+    Undocumented, unauthenticated and unversioned by the university. The observed payload carries
+    geometry only: every feature's properties object is empty, so vehicle id, type, battery level and
+    availability are NOT exposed. Recording that absence is the point of this contract.
+  contact:
+    name: Texas A&M GeoServices
+    url: https://geoservices.tamu.edu/Support/
+servers:
+- url: https://veoride.geoservices.tamu.edu
+  description: Texas A&M GeoServices micromobility feed
+tags:
+- name: Micromobility
+  description: Shared vehicle positions on campus.
+paths:
+  /api/vehicles/basic/geojson:
+    get:
+      tags:
+      - Micromobility
+      operationId: getVehiclePositionsGeoJson
+      summary: Current shared-vehicle positions as GeoJSON
+      description: >-
+        Returns the current positions of shared micromobility vehicles as a GeoJSON
+        FeatureCollection of Point features. Verified 200 on 2026-09-01 returning 3,300 features. The
+        "basic" path segment is reflected in the payload: properties are empty on every feature.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of vehicle positions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleFeatureCollection'
+components:
+  schemas:
+    VehicleFeatureCollection:
+      type: object
+      required: [type, features]
+      properties:
+        type:
+          type: string
+          enum: [FeatureCollection]
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleFeature'
+    VehicleFeature:
+      type: object
+      required: [type, geometry, properties]
+      properties:
+        type:
+          type: string
+          enum: [Feature]
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          type: object
+          description: >-
+            Empty on every one of the 3,300 features observed on 2026-09-01. No vehicle identifier,
+            type, battery level or reservation state is published on this route.
+          additionalProperties: true
+    PointGeometry:
+      type: object
+      required: [type, coordinates]
+      properties:
+        type:
+          type: string
+          enum: [Point]
+        coordinates:
+          type: array
+          description: '[longitude, latitude] in WGS 84.'
+          minItems: 2
+          maxItems: 2
+          items:
+            type: number

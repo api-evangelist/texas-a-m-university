@@ -1,0 +1,293 @@
+openapi: 3.2.0
+info:
+  title: Texas A&M GeoServices Geocoding API
+  version: 5.0.0
+  description: Address geocoding, address normalisation and standardisation, census intersection and reverse geocoding, operated by Texas A&M University at geoservices.tamu.edu.
+  contact:
+    name: Texas A&M GeoServices
+    url: https://geoservices.tamu.edu/Support/
+  termsOfService: https://geoservices.tamu.edu/About/Legal/TermsOfUse.aspx
+servers:
+- url: https://geoservices.tamu.edu/Api/Geocode/V5
+  description: GeoServices Geocoding API v5 production (REST)
+tags:
+- name: Geocoding
+  description: Address to coordinate resolution with optional census intersection.
+paths:
+  /:
+    get:
+      tags:
+      - Geocoding
+      operationId: geocodeAddress
+      summary: Geocode a US street address
+      description: 'Resolves a non-parsed or parsed US street address to a latitude/longitude, a match type, a match score and an uncertainty region, optionally intersecting the result with US Census geographies. Verified live on 2026-09-01: an anonymous call with version=5.0.0 returns HTTP 200 with a JSON body whose queryStatusCode is "APIKeyMissing", confirming both the parameter contract and the authentication model.'
+      security:
+      - apiKeyQuery: []
+      parameters:
+      - name: apiKey
+        in: query
+        required: true
+        description: API key from the GeoServices account profile page.
+        schema:
+          type: string
+      - name: version
+        in: query
+        required: true
+        description: API version. Omitting it returns queryStatusCode "Version Error" (402).
+        schema:
+          type: string
+          enum:
+          - 5.0.0
+      - name: format
+        in: query
+        required: false
+        description: Output serialisation.
+        schema:
+          type: string
+          enum:
+          - json
+          - csv
+          - tsv
+          - xml
+          default: json
+      - name: streetAddress
+        in: query
+        required: false
+        description: Non-parsed street address value, e.g. "1101 Texas Ave".
+        schema:
+          type: string
+      - name: city
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: zip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: census
+        in: query
+        required: false
+        description: Calculate census variables. Slower.
+        schema:
+          type: boolean
+          default: false
+      - name: censusYears
+        in: query
+        required: false
+        description: Comma-separated census years to intersect with, or "allAvailable".
+        schema:
+          type: string
+          example: 2010,2020
+      - name: includeHeader
+        in: query
+        required: false
+        description: Include column headers for csv/tsv output.
+        schema:
+          type: boolean
+      - name: notStore
+        in: query
+        required: false
+        description: Do not historically store the transaction in the account.
+        schema:
+          type: boolean
+      - name: verbose
+        in: query
+        required: false
+        description: Output parsed address, matched address and reference feature details.
+        schema:
+          type: boolean
+      - name: allowTies
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: tieBreakingStrategy
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - chooseFirstOne
+          - flipACoin
+          - returnAll
+          - revertToHierarchy
+          default: chooseFirstOne
+      - name: confidenceLevels
+        in: query
+        required: false
+        description: Minimum confidence level accepted for Open Addresses source matches.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 8
+          default: 5
+      - name: minScore
+        in: query
+        required: false
+        description: Minimum accepted match score.
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 100
+      - name: exhaustiveSearch
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: aliasTables
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: attributeRelaxation
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: relaxableAttributes
+        in: query
+        required: false
+        description: Comma-separated subset of pre, suffix, post, city, zip.
+        schema:
+          type: string
+      - name: substringMAtching
+        in: query
+        required: false
+        description: Spelling as published in the Texas A&M parameter table.
+        schema:
+          type: boolean
+          default: true
+      - name: soundex
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: soundexableAttributes
+        in: query
+        required: false
+        description: Comma-separated subset of name, city.
+        schema:
+          type: string
+      - name: hierarchy
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - uncertaintyBased
+          - featureMatchingSelectionMethod
+          default: featureMatchingSelectionMethod
+      - name: referenceDataSources
+        in: query
+        required: false
+        schema:
+          type: string
+          default: all
+      - name: geometry
+        in: query
+        required: false
+        description: Return the full geometry of the reference feature. Creates a very large response.
+        schema:
+          type: boolean
+          default: false
+      - name: multithreadedGeocoder
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: outputStatistics
+        in: query
+        required: false
+        description: Return processing statistics. json/xml only.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Geocoding envelope. Texas A&M returns HTTP 200 for both successful and failed queries and carries the real outcome in statusCode / queryStatusCode inside the body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeocodeEnvelope'
+components:
+  schemas:
+    GeocodeEnvelope:
+      type: object
+      description: Response envelope observed live on 2026-09-01. The error shape (statusCode, message, error, data) was captured from a real anonymous call; the success members are derived from the published output-field table and were not observed, because a key is required.
+      properties:
+        statusCode:
+          type: integer
+          description: 200 on success; 401 APIKeyMissing; 402 Version Error.
+          example: 401
+        message:
+          type: string
+          example: APIKeyMissing
+        error:
+          type: string
+          example: API Key Missing
+        data:
+          $ref: '#/components/schemas/GeocodeResult'
+    GeocodeResult:
+      type: object
+      properties:
+        version:
+          type: object
+          properties:
+            major:
+              type: integer
+            minor:
+              type: integer
+            build:
+              type: integer
+            revision:
+              type: integer
+        timeTaken:
+          type: number
+          nullable: true
+          description: Processing time in milliseconds.
+        transactionGuid:
+          type: string
+          nullable: true
+        apiHost:
+          type: string
+          nullable: true
+        clientHost:
+          type: string
+          nullable: true
+        queryStatusCode:
+          type: string
+          description: Query result code, e.g. Success, APIKeyMissing, InvalidAddress.
+        inputParameterSet:
+          type: object
+          description: Echo of the parsed input parameters.
+        outputGeocodes:
+          type: array
+          description: 'Derived from the published output-field table (positions 0-171): transaction id, api version, query status code, time taken, latitude, longitude, match type, matching geography type, micro match status, match score, region size and units, NAACCR coordinate quality code, and optional parsed address, matched address, reference feature and census intersection blocks. Not observed on a live successful call.'
+          items:
+            type: object
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: Free API key issued from the GeoServices account profile at https://geoservices.tamu.edu/Signup/. Sent as a query parameter; there is no header form.
+externalDocs:
+  description: Texas A&M GeoServices Geocoding API v5 reference
+  url: https://geoservices.tamu.edu/Services/Geocode/WebService/Details/
+x-provenance:
+  generated: '2026-09-01'
+  method: derived
+  source: Derived from the Texas A&M GeoServices published API reference at https://geoservices.tamu.edu/Services/Geocode/WebService/Details/ (HTTP 200, 2026-09-01) and confirmed against live anonymous calls to https://geoservices.tamu.edu/Api/Geocode/V5/ which returned an HTTP 200 body carrying statusCode 402 "Version Error" with no version parameter and statusCode 401 "APIKeyMissing" with version=5.0.0 and no apiKey. No response payload for a successful geocode was observed, because a successful call requires an account API key; the success schema below is derived from the published output-field table and is marked as such.
+  x-operator: institution

@@ -1,0 +1,58 @@
+{
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "probed",
+    "source": "https://geoservices.tamu.edu/Api/Geocode/V5/?version=5.0.0&streetAddress=1101%20Texas%20Ave&city=College%20Station&state=TX&zip=77840&format=json with no apiKey \u2014 HTTP 200 carrying queryStatusCode APIKeyMissing, fetched 2026-09-01. Verbatim."
+  },
+  "response": {
+    "statusCode": 401,
+    "message": "APIKeyMissing",
+    "error": "API Key Missing",
+    "data": {
+      "version": {
+        "major": 5,
+        "minor": 0,
+        "build": 0,
+        "revision": 0,
+        "majorRevision": 0,
+        "minorRevision": 0
+      },
+      "timeTaken": null,
+      "transactionGuid": null,
+      "apiHost": null,
+      "clientHost": null,
+      "queryStatusCode": "APIKeyMissing",
+      "inputParameterSet": {
+        "streetAddress": null,
+        "city": null,
+        "state": null,
+        "zip": null,
+        "version": null,
+        "apiKey": null,
+        "dontStoreTransactionDetails": null,
+        "allowTies": null,
+        "tieHandlingStrategyType": null,
+        "relaxableAttributes": null,
+        "relaxation": null,
+        "substring": null,
+        "soundex": null,
+        "soundexAttributes": null,
+        "referenceSources": null,
+        "featureMatchingSelectionMethod": null,
+        "attributeWeightingScheme": null,
+        "minimumMatchScore": null,
+        "confidenceLevels": null,
+        "exhaustiveSearch": null,
+        "aliasTables": null,
+        "multiThreading": null,
+        "censusYears": null,
+        "includeHeader": false,
+        "verbose": true,
+        "outputCensusVariables": null,
+        "outputReferenceFeatureGeometry": null,
+        "outputFormat": "json"
+      },
+      "results": []
+    }
+  }
+}

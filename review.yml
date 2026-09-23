@@ -3,7 +3,7 @@ name: Texas A&M University
 description: Texas A&M University public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/texas-a-m-university/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 reviews:
   - date: '2026-06-03'
     rating: 3
@@ -43,3 +43,75 @@ reviews:
       - url: https://www.linkedin.com/school/texas-a-m-university/
         status: 999
         note: LinkedIn school page; 999 is normal anti-bot response.
+  - date: '2026-09-01'
+    rating: 4
+    summary: >-
+      University-pipeline re-profile with operator attribution settled before anything was saved.
+      Six institution-operated surfaces were probed anonymously and answered: the GeoServices
+      Geocoding API v5, a previously uncatalogued Aggie Map dining GeoJSON backend at
+      api.aggiemap.tamu.edu, a campus micromobility vehicle feed on veoride.geoservices.tamu.edu, a
+      public Esri ArcGIS Server operated by Texas A&M IT at gis.it.tamu.edu, the OAKTrust OAI-PMH 2.0
+      endpoint, and the university's own Shibboleth IdP SAML metadata registered in InCommon as
+      urn:mace:incommon:tamu.edu. Four now carry an OpenAPI in this repository; the ArcGIS and
+      CourseLeaf contracts deliberately do not, because those are Esri's and Leepfrog's product
+      specifications rather than Texas A&M's engineering. Registry memberships were evidenced from
+      each registry's own API: DataCite provider CXAU carrying Texas A&M's ROR id, DataCite
+      repository client TDL.TAMU, Crossref member 14385, and DOI prefix 10.21423 registered at both.
+      Three corrections to the June 2026 profile: the v4 SOAP WSDL advertised in Texas A&M's own
+      documentation 302-redirects to a server-error page; data.tamu.edu resolves but does not
+      connect, so no open-data portal is claimed; and the System developer portal returns no catalog
+      to an unauthenticated caller, so the enterprise tier is inventoried, never described as
+      callable. GeoServices signals every failure with HTTP 200 and an in-body status code, which is
+      recorded in errors/ because transport-level monitoring cannot see it.
+    endpoints:
+      - url: https://geoservices.tamu.edu/Api/Geocode/V5/?version=5.0.0&streetAddress=1101%20Texas%20Ave&city=College%20Station&state=TX&zip=77840&format=json
+        status: 200
+        note: Anonymous call returns HTTP 200 carrying queryStatusCode APIKeyMissing.
+      - url: https://api.aggiemap.tamu.edu/dining/locations/geojson
+        status: 200
+        note: 54-feature GeoJSON FeatureCollection of campus dining locations. New find.
+      - url: https://veoride.geoservices.tamu.edu/api/vehicles/basic/geojson
+        status: 200
+        note: 3,300-feature GeoJSON vehicle position feed; properties empty on every feature. New find.
+      - url: https://gis.it.tamu.edu/arcgis/rest/services?f=json
+        status: 200
+        note: ArcGIS REST Services Directory, currentVersion 11.5, seven folders. New find.
+      - url: https://oaktrust.library.tamu.edu/server/oai/request?verb=Identify
+        status: 200
+        note: OAI-PMH 2.0; repositoryName OAKTrust, adminEmail helpdesk@library.tamu.edu, no vendor present.
+      - url: https://idp.tamu.edu/idp/shibboleth
+        status: 200
+        note: SAML 2.0 EntityDescriptor for Texas A&M's own Shibboleth IdP. New find.
+      - url: https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu
+        status: 200
+        note: InCommon per-entity metadata; four other candidate entityIDs returned 404.
+      - url: https://catalog.tamu.edu/ribbit/?page=getcourse.rjs&code=ENGR%20102
+        status: 200
+        note: CourseLeaf course-detail XML on a Texas A&M host. Recorded as a tenancy, not a contract.
+      - url: https://api.datacite.org/providers/cxau
+        status: 200
+        note: DataCite provider "Texas A&M Libraries", rorId https://ror.org/01f5ytq51.
+      - url: https://api.crossref.org/members/14385
+        status: 200
+        note: Crossref member Texas A&M University Libraries, prefix 10.21423, 7,464 DOIs.
+      - url: https://api.ror.org/organizations/https://ror.org/01f5ytq51
+        status: 200
+        note: ROR record; domain tamu.edu, established 1876.
+      - url: https://api-doc.sea.system.tamus.edu/api/portal/v1.3/discovery/apis
+        status: 404
+        note: No unauthenticated discovery route on the System developer portal.
+      - url: https://geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsed_V04_01.asmx?WSDL
+        status: 200
+        note: Redirects to /Support/ServerError.aspx. The advertised v4 SOAP WSDL does not resolve.
+      - url: https://data.tamu.edu/
+        status: 0
+        note: DNS resolves (CNAME weasel.tamu.edu) but every HTTPS connection timed out. No open-data portal.
+      - url: https://scholars.library.tamu.edu/
+        status: 403
+        note: Cloudflare managed challenge to a browser User-Agent. Live but unreadable by us.
+      - url: https://hprc.tamu.edu/
+        status: 403
+        note: Same Cloudflare challenge. High Performance Research Computing recorded as live-but-blocked.
+      - url: https://www.tamu.edu/llms.txt
+        status: 404
+        note: No llms.txt published.

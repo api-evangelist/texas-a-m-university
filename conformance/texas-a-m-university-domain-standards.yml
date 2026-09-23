@@ -1,0 +1,155 @@
+# x-method: derived
+# Authored by API Evangelist from live probes and published documentation on 2026-09-01.
+# The in-file `method:` records HOW the evidence was obtained (probed / derived);
+# this line records WHO WROTE THE FILE, in the provenance manifest's vocabulary.
+generated: '2026-09-01'
+method: probed
+source: >-
+  Live probes on 2026-09-01 of Texas A&M-operated and Texas A&M-tenanted hosts, plus the DataCite
+  REST API, the Crossref REST API, the ROR API and the InCommon per-entity metadata query service.
+  Every hit below is anchored to a URL that was fetched and a status code that was observed.
+description: >-
+  Conformance of Texas A&M University's verified surfaces against the Kin Score `education`
+  regulatory regime's domain standards (scim, lti, oneroster, ed-fi, caliper, qti, oai-pmh,
+  shibboleth, saml, orcid, datacite, crossref). Reward-only: a standard recorded as not_found means
+  we did not find it on a public surface, not that Texas A&M does not use it internally.
+regime: education
+regime_id: education
+conformance:
+- standard: shibboleth
+  status: conformant
+  x-operator: institution
+  evidence:
+    url: https://idp.tamu.edu/idp/shibboleth
+    status: 200
+    content_type: application/xml;charset=utf-8
+    location: >-
+      EntityDescriptor/@entityID =
+      "urn:mace:tamu.edu:shibboleth:idp:tamu:administrative:cscn:idp.tamu.edu"; served from
+      idp.tamu.edu (A 165.91.22.81), inside Texas A&M's own address space
+    note: >-
+      Texas A&M operates a Shibboleth Identity Provider and publishes its SAML metadata
+      unauthenticated from its own host.
+  artifact: openapi/texas-a-m-university-identity-federation-openapi.yml
+- standard: saml
+  status: conformant
+  x-operator: institution
+  evidence:
+    url: https://mdq.incommon.org/entities/urn%3Amace%3Aincommon%3Atamu.edu
+    status: 200
+    content_type: application/samlmetadata+xml
+    location: >-
+      EntityDescriptor/@entityID = "urn:mace:incommon:tamu.edu"; mdui:DisplayName = "Texas A&M
+      University"; IDPSSODescriptor/SingleSignOnService Locations
+      https://idp.tamu.edu/idp/profile/SAML2/POST/SSO,
+      https://idp.tamu.edu/idp/profile/SAML2/Redirect/SSO and
+      https://idp.tamu.edu/idp/profile/Shibboleth/SSO
+    note: >-
+      Texas A&M's SAML 2.0 entity is registered in InCommon and resolvable through the federation's
+      per-entity Metadata Query service, which also carries it into eduGAIN interfederation. Four
+      other plausible entityIDs (idp.tamu.edu, shib.tamu.edu, sso.tamu.edu, gateway.tamu.edu as
+      https://…/idp/shibboleth) return 404 from MDQ; urn:mace:incommon:tamu.edu is the registered
+      one, and recording the wrong one would have produced a dead pointer that still reads as a
+      claim.
+  artifact: examples/texas-a-m-university-incommon-entity-example.xml
+- standard: oai-pmh
+  status: conformant
+  x-operator: institution
+  evidence:
+  - url: https://oaktrust.library.tamu.edu/server/oai/request?verb=Identify
+    status: 200
+    content_type: text/xml;charset=UTF-8
+    location: >-
+      OAI-PMH/Identify/repositoryName = "OAKTrust"; baseURL
+      https://oaktrust.library.tamu.edu/server/oai/request; protocolVersion 2.0; adminEmail
+      helpdesk@library.tamu.edu; granularity YYYY-MM-DDThh:mm:ssZ; deletedRecord transient;
+      oai-identifier repositoryIdentifier "oaktrust.library.tamu.edu"
+  - url: https://oaktrust.library.tamu.edu/server/oai/request?verb=ListMetadataFormats
+    status: 200
+    location: 'metadataPrefix values include didl, mods (and the OAI-PMH mandatory oai_dc)'
+  note: >-
+    CREDIT WITH CARE, AND THIS ONE EARNS IT. The repository software is DSpace, which is a product
+    Texas A&M did not write — but the host is under Texas A&M's own registrable domain, the
+    repository identifier is oaktrust.library.tamu.edu, and the admin contact is
+    helpdesk@library.tamu.edu rather than a vendor's support desk. Unlike the bepress and Figshare
+    deployments elsewhere in this cohort, no vendor appears anywhere in the Identify response.
+    Recorded as institution-operated. Note also that the DSpace 6 path /oai/request returns 403 from
+    a Cloudflare challenge; the working endpoint is the DSpace 7 path under /server.
+  artifact: examples/texas-a-m-university-oaktrust-oaipmh-identify-example.xml
+- standard: datacite
+  status: conformant
+  x-operator: institution
+  evidence:
+  - url: https://api.datacite.org/providers/cxau
+    status: 200
+    location: >-
+      data.attributes.name = "Texas A&M Libraries"; symbol CXAU; memberType consortium_organization;
+      rorId https://ror.org/01f5ytq51 — the same ROR identifier this repository records for Texas
+      A&M University
+  - url: https://api.datacite.org/clients/tdl.tamu
+    status: 200
+    location: >-
+      data.attributes.name = "Texas A&M University Libraries"; symbol TDL.TAMU; clientType
+      repository; year 2018; provider cxau
+  - url: https://api.datacite.org/prefixes?client-id=tdl.tamu
+    status: 200
+    location: prefix 10.21423, createdAt 2016-04-06, bound to client tdl.tamu and provider cxau
+  - url: https://api.datacite.org/dois?client-id=tdl.tamu
+    status: 200
+    location: 8,925 DOIs registered under the Texas A&M University Libraries repository client
+  note: >-
+    Texas A&M University Libraries is a DataCite consortium organization in its own right, with its
+    own provider record carrying Texas A&M's ROR id and its own repository client. This is a fact
+    about the institution, not a vendor's contract, and it is recorded as a membership. DataCite's
+    own API contract is deliberately NOT saved into this repository. The DOIs themselves currently
+    resolve to journals.tdl.org, the Texas Digital Library platform Texas A&M Libraries hosts with
+    its consortium partners, so the registrant is Texas A&M and the landing pages are TDL's.
+- standard: crossref
+  status: conformant
+  x-operator: institution
+  evidence:
+  - url: https://api.crossref.org/members/14385
+    status: 200
+    location: >-
+      message.primary-name = "Texas A&M University Libraries"; prefixes ["10.21423"]; counts
+      total-dois 7,464 (current 706, backfile 6,758)
+  - url: https://api.crossref.org/works?filter=prefix:10.21423&rows=2
+    status: 200
+    location: works registered under the prefix resolve, e.g. 10.21423/aabppro20084401
+  note: >-
+    The same DOI prefix, 10.21423, is registered at BOTH DataCite and Crossref under Texas A&M
+    University Libraries — a dual registrant relationship that is uncommon in this cohort and is
+    evidenced from each registry's own API rather than from a prose claim on a library web page.
+- standard: orcid
+  status: not_found
+  note: >-
+    No Texas A&M-operated ORCID integration surface was evidenced. Texas A&M Libraries participates
+    in ORCID through the Texas Digital Library consortium, but no unauthenticated endpoint on a Texas
+    A&M host was found that declares ORCID support, and the Scholars@TAMU application — the surface
+    most likely to carry it — returns a Cloudflare 403 to automated requests. Recorded as not found
+    rather than absent.
+- standard: lti
+  status: not_found
+  x-operator: tenant
+  note: >-
+    Texas A&M runs Canvas for its LMS: canvas.tamu.edu is a CNAME to texasam-vanity.instructure.com.
+    Any LTI conformance there is Instructure's contract, not Texas A&M's, and no Texas A&M-operated
+    LTI tool or platform endpoint was found.
+- standard: scim
+  status: not_found
+  note: >-
+    No public SCIM discovery endpoint (/scim/v2/ServiceProviderConfig or similar) was found on any
+    Texas A&M host. The System's identity estate is administered through the gated UIN Services API,
+    whose contract is not published.
+- standard: oneroster
+  status: not_found
+  note: No public rostering surface found.
+- standard: ed-fi
+  status: not_found
+  note: Ed-Fi is a K-12 data standard; no evidence on any Texas A&M surface, as expected.
+- standard: caliper
+  status: not_found
+  note: No public Caliper learning-analytics endpoint found.
+- standard: qti
+  status: not_found
+  note: No public QTI assessment surface found.

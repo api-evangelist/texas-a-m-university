@@ -5,6 +5,10 @@ provider: Texas A&M University
 providerId: texas-a-m-university
 created: '2026-06-03'
 modified: '2026-06-03'
+generated: '2026-06-03'
+method: derived
+source: >-
+  Derived on 2026-06-03 from this repository's own apis.yml surface inventory. No Texas A&M host publishes a rate-limit table; re-checked 2026-09-01 against geoservices.tamu.edu, api.aggiemap.tamu.edu and gis.it.tamu.edu and none carries one.
 reconciled: false
 tags:
 - Education

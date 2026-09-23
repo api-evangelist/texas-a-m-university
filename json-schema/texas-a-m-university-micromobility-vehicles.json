@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/texas-a-m-university/refs/heads/main/json-schema/texas-a-m-university-micromobility-vehicles.json",
+  "title": "Texas A&M Campus Micromobility Vehicle Positions",
+  "description": "GeoJSON FeatureCollection of shared micromobility vehicle positions served from veoride.geoservices.tamu.edu. The feed carries geometry only: every feature's properties object was empty across all 3,300 features observed, so no vehicle identifier, type, battery level or availability is described here.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "Derived from the observed response of https://veoride.geoservices.tamu.edu/api/vehicles/basic/geojson (HTTP 200, application/json, 342203 bytes, 3300 features, fetched 2026-09-01). No schema is published by Texas A&M for this host.",
+    "x-operator": "institution"
+  },
+  "type": "object",
+  "required": ["type", "features"],
+  "properties": {
+    "type": { "const": "FeatureCollection" },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "geometry", "properties"],
+        "properties": {
+          "type": { "const": "Feature" },
+          "geometry": {
+            "type": "object",
+            "required": ["type", "coordinates"],
+            "properties": {
+              "type": { "const": "Point" },
+              "coordinates": {
+                "type": "array",
+                "description": "[longitude, latitude] in WGS 84.",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": { "type": "number" }
+              }
+            }
+          },
+          "properties": {
+            "type": "object",
+            "description": "Empty on every feature observed on 2026-09-01.",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  }
+}
