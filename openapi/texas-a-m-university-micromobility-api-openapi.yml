@@ -29,20 +29,6 @@ paths:
                 $ref: '#/components/schemas/VehicleFeatureCollection'
 components:
   schemas:
-    VehicleFeatureCollection:
-      type: object
-      required:
-      - type
-      - features
-      properties:
-        type:
-          type: string
-          enum:
-          - FeatureCollection
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/VehicleFeature'
     PointGeometry:
       type: object
       required:
@@ -60,6 +46,20 @@ components:
           maxItems: 2
           items:
             type: number
+    VehicleFeatureCollection:
+      type: object
+      required:
+      - type
+      - features
+      properties:
+        type:
+          type: string
+          enum:
+          - FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleFeature'
     VehicleFeature:
       type: object
       required:
