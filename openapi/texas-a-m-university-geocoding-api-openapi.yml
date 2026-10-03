@@ -223,22 +223,6 @@ paths:
                 $ref: '#/components/schemas/GeocodeEnvelope'
 components:
   schemas:
-    GeocodeEnvelope:
-      type: object
-      description: Response envelope observed live on 2026-09-01. The error shape (statusCode, message, error, data) was captured from a real anonymous call; the success members are derived from the published output-field table and were not observed, because a key is required.
-      properties:
-        statusCode:
-          type: integer
-          description: 200 on success; 401 APIKeyMissing; 402 Version Error.
-          example: 401
-        message:
-          type: string
-          example: APIKeyMissing
-        error:
-          type: string
-          example: API Key Missing
-        data:
-          $ref: '#/components/schemas/GeocodeResult'
     GeocodeResult:
       type: object
       properties:
@@ -277,6 +261,22 @@ components:
           description: 'Derived from the published output-field table (positions 0-171): transaction id, api version, query status code, time taken, latitude, longitude, match type, matching geography type, micro match status, match score, region size and units, NAACCR coordinate quality code, and optional parsed address, matched address, reference feature and census intersection blocks. Not observed on a live successful call.'
           items:
             type: object
+    GeocodeEnvelope:
+      type: object
+      description: Response envelope observed live on 2026-09-01. The error shape (statusCode, message, error, data) was captured from a real anonymous call; the success members are derived from the published output-field table and were not observed, because a key is required.
+      properties:
+        statusCode:
+          type: integer
+          description: 200 on success; 401 APIKeyMissing; 402 Version Error.
+          example: 401
+        message:
+          type: string
+          example: APIKeyMissing
+        error:
+          type: string
+          example: API Key Missing
+        data:
+          $ref: '#/components/schemas/GeocodeResult'
   securitySchemes:
     apiKeyQuery:
       type: apiKey
