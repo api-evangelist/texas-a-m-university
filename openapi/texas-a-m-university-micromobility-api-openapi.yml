@@ -29,6 +29,20 @@ paths:
                 $ref: '#/components/schemas/VehicleFeatureCollection'
 components:
   schemas:
+    VehicleFeatureCollection:
+      type: object
+      required:
+      - type
+      - features
+      properties:
+        type:
+          type: string
+          enum:
+          - FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleFeature'
     VehicleFeature:
       type: object
       required:
@@ -46,20 +60,6 @@ components:
           type: object
           description: Empty on every one of the 3,300 features observed on 2026-09-01. No vehicle identifier, type, battery level or reservation state is published on this route.
           additionalProperties: true
-    VehicleFeatureCollection:
-      type: object
-      required:
-      - type
-      - features
-      properties:
-        type:
-          type: string
-          enum:
-          - FeatureCollection
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/VehicleFeature'
     PointGeometry:
       type: object
       required:

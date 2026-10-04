@@ -39,6 +39,21 @@ paths:
           description: Empty body observed. Payload shape not established.
 components:
   schemas:
+    DiningFeature:
+      type: object
+      required:
+      - type
+      - geometry
+      - properties
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/DiningProperties'
     DiningProperties:
       type: object
       properties:
@@ -82,6 +97,20 @@ components:
           type: string
         state:
           type: string
+    DiningFeatureCollection:
+      type: object
+      required:
+      - type
+      - features
+      properties:
+        type:
+          type: string
+          enum:
+          - FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiningFeature'
     PointGeometry:
       type: object
       required:
@@ -99,35 +128,6 @@ components:
           maxItems: 2
           items:
             type: number
-    DiningFeatureCollection:
-      type: object
-      required:
-      - type
-      - features
-      properties:
-        type:
-          type: string
-          enum:
-          - FeatureCollection
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiningFeature'
-    DiningFeature:
-      type: object
-      required:
-      - type
-      - geometry
-      - properties
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          $ref: '#/components/schemas/PointGeometry'
-        properties:
-          $ref: '#/components/schemas/DiningProperties'
 x-provenance:
   generated: '2026-09-01'
   method: probed
