@@ -1,0 +1,78 @@
+edges:
+- partner_name: eduGAIN
+  partner: null
+  type: register
+  channel: standard-directory
+  relationship: network-participant
+  direction: partner-built
+  evidence: https://technical.edugain.org/api.php?action=list_entities&type=idp&format=json
+  category: research and education identity federation
+  contract_reference:
+    network: eduGAIN (GÉANT interfederation)
+    spec_file: null
+    roles:
+    - identity-provider
+    role: identity-provider
+    federations:
+    - INCOMMON
+    matched_by: domain+idp-scope:tamu.edu
+    entities:
+    - entity_id: http://login.tfs.tamu.edu/adfs/services/trust
+      role: identity-provider
+      federation: INCOMMON
+      display_name: Texas A&M Forest Service
+      entity_categories:
+      - '43'
+      - '76'
+      sirtfi: true
+      coco: false
+    - entity_id: http://shb-adfs.teex.tamus.edu/adfs/services/trust
+      role: identity-provider
+      federation: INCOMMON
+      display_name: Texas A&M University-Engineering Extension Service
+      entity_categories:
+      - '43'
+      - '76'
+      sirtfi: true
+      coco: false
+    - entity_id: https://agsso.agnet.tamu.edu/idp/shibboleth
+      role: identity-provider
+      federation: INCOMMON
+      display_name: Texas A&M University-AgriLife
+      entity_categories:
+      - '11'
+      - '43'
+      - '76'
+      - '194'
+      sirtfi: true
+      coco: false
+    - entity_id: https://sso.tti.tamu.edu/idp
+      role: identity-provider
+      federation: INCOMMON
+      display_name: Texas A&M Transportation Institute
+      entity_categories:
+      - '11'
+      - '43'
+      - '76'
+      sirtfi: true
+      coco: false
+    - entity_id: urn:mace:incommon:tamu.edu
+      role: identity-provider
+      federation: INCOMMON
+      display_name: Texas A&M University
+      entity_categories:
+      - '11'
+      - '43'
+      - '73'
+      - '76'
+      sirtfi: true
+      coco: false
+    detected_by: sweep-higher-ed.py
+    detected: '2026-10-15'
+  detected_by: sweep-higher-ed.py
+  first_seen: '2026-10-15'
+generated: '2026-10-15'
+method: searched
+checked:
+- https://technical.edugain.org/api.php?action=list_entities&type=idp&format=json
+- https://technical.edugain.org/api.php?action=list_entities&type=sp&format=json
