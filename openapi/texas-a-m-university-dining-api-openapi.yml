@@ -54,6 +54,37 @@ components:
           $ref: '#/components/schemas/PointGeometry'
         properties:
           $ref: '#/components/schemas/DiningProperties'
+    DiningFeatureCollection:
+      type: object
+      required:
+      - type
+      - features
+      properties:
+        type:
+          type: string
+          enum:
+          - FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiningFeature'
+    PointGeometry:
+      type: object
+      required:
+      - type
+      - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+        coordinates:
+          type: array
+          description: '[longitude, latitude] in WGS 84.'
+          minItems: 2
+          maxItems: 2
+          items:
+            type: number
     DiningProperties:
       type: object
       properties:
@@ -97,37 +128,6 @@ components:
           type: string
         state:
           type: string
-    DiningFeatureCollection:
-      type: object
-      required:
-      - type
-      - features
-      properties:
-        type:
-          type: string
-          enum:
-          - FeatureCollection
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/DiningFeature'
-    PointGeometry:
-      type: object
-      required:
-      - type
-      - coordinates
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-        coordinates:
-          type: array
-          description: '[longitude, latitude] in WGS 84.'
-          minItems: 2
-          maxItems: 2
-          items:
-            type: number
 x-provenance:
   generated: '2026-09-01'
   method: probed
