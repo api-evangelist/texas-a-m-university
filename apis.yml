@@ -259,6 +259,9 @@ apis:
     and any LTI conformance are Instructure's contract and are not saved under Texas A&M's name.
   humanURL: https://canvas.tamu.edu/
   tags:
+  - LMS
+  - Canvas
+  tags_raw:
   - Learning Management
   - LMS
   - Canvas
